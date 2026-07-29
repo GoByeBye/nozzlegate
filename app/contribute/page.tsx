@@ -135,12 +135,15 @@ export default function ContributePage() {
         </div>
       </section>
 
-      <section className="license-strip">
+      <section className="license-strip" id="ai-disclosure">
         <div>
           <p className="eyebrow">{license.eyebrow}</p>
           <h2>{license.title}</h2>
         </div>
-        <p>{license.text}</p>
+        <div className="license-strip__body">
+          <p>{license.aiDisclosure}</p>
+          <p>{license.text}</p>
+        </div>
       </section>
     </main>
   );

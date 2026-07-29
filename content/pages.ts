@@ -158,6 +158,7 @@ export type ContributeContent = {
   license: {
     eyebrow: string;
     title: string;
+    aiDisclosure: string;
     text: string;
   };
 };

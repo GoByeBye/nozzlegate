@@ -235,10 +235,17 @@ test("links contributors to the GitHub project", async () => {
   );
   assert.match(html, /Join the Nozzlegate Discord/i);
   assert.match(html, /https:\/\/discord\.gg\/7Aqk5x8kFc/i);
-  assert.doesNotMatch(html, /Daddie0/i);
+  assert.doesNotMatch(html, /discord(?:app)?\.com\/users\//i);
   assert.match(html, /mailto:contact\.nozzlegate@f22\.no/i);
   assert.match(html, /website itself does not submit or store messages/i);
   assert.match(html, /href="\/privacy"/i);
+  assert.match(html, /id="ai-disclosure"/i);
+  assert.match(html, /Humans make the call/i);
+  assert.match(
+    html,
+    /AI output is never treated as a source or independent verification/i,
+  );
+  assert.match(html, /href="\/contribute#ai-disclosure"/i);
 });
 
 test("server-renders the privacy notice", async () => {
@@ -260,7 +267,7 @@ test("server-renders the privacy notice", async () => {
     html,
     /https:\/\/developers\.cloudflare\.com\/fundamentals\/reference\/policies-compliances\/cloudflare-cookies\//i,
   );
-  assert.doesNotMatch(html, /Daddie0/i);
+  assert.doesNotMatch(html, /discord(?:app)?\.com\/users\//i);
   assert.doesNotMatch(html, /OpenAI|ChatGPT Sites/i);
 });
 
@@ -444,7 +451,22 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
     /En betalningsmottagare får inte ta ut någon avgift av betalaren/i,
   );
   assert.match(html, /I am not cancelling or returning the underlying order/i);
-  assert.doesNotMatch(html, /107343/);
+  assert.doesNotMatch(html, /\bOrder #\d{4,}\b/i);
+});
+
+test("documents AI-assisted work and human responsibility", async () => {
+  const notice = await readFile(
+    new URL("../NOTICE.md", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(notice, /^# Project notices/m);
+  assert.match(notice, /^## AI-assisted work/m);
+  assert.match(notice, /Human maintainers decide what is\s+published/i);
+  assert.match(
+    notice,
+    /AI output is never treated as a source or independent verification/i,
+  );
 });
 
 test("server-renders the reporting guide and official form link", async () => {

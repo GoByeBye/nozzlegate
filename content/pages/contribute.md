@@ -82,8 +82,9 @@ correction:
     - Corrections are evaluated on evidence, not affiliation. A correction should identify the contested passage, provide a checkable source and propose precise replacement text. Material corrections should retain a dated note so readers can see what changed.
     - Right of reply matters. A sourced company response is added to the relevant record even when it does not resolve the underlying dispute.
 license:
-  eyebrow: Licensing
-  title: Reuse the code and original writing.
+  eyebrow: Transparency and licensing
+  title: Humans make the call.
+  aiDisclosure: AI tools have helped with parts of the code, design, research organization, tests and first drafts. They do not decide what counts as evidence. A human maintainer checks published claims against the cited record, decides what goes live and remains responsible for it. AI output is never treated as a source or independent verification.
   text: The site code is MIT licensed. Original editorial content is available under CC BY 4.0. Third-party evidence remains subject to its original rights and is not relicensed by this project.
 ---
 

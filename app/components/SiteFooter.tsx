@@ -14,6 +14,7 @@ export function SiteFooter() {
         <Link href="/#case-files">Case files</Link>
         <Link href="/report">Reporting guide</Link>
         <Link href="/contribute#contact">Contact</Link>
+        <Link href="/contribute#ai-disclosure">AI disclosure</Link>
         <Link href="/privacy">Privacy</Link>
       </nav>
 

@@ -21,6 +21,8 @@ email threads, laws, authority guidance, and dated page archives.
 Never publish:
 
 - complete card or bank details;
+- exact order numbers or other buyer identifiers unless they are essential,
+  expressly authorized for publication, and reviewed for privacy;
 - home addresses or phone numbers;
 - passwords, reset links, cookies, or support tokens;
 - signatures;
@@ -38,6 +40,20 @@ For chat records, replace non-company handles with stable labels such as
 `Community member 1`. Keep a real name only where it is materially necessary
 to attribute an official company statement, and explain that choice in the
 provenance record.
+
+Use obviously synthetic order numbers and personal details in tests, examples,
+and fixtures. A negative assertion does not make a real identifier private: the
+test source and its Git history are public too.
+
+## AI-assisted contributions
+
+Disclose material AI assistance in the pull-request description, including what
+the tool helped draft, research, transform, or test.
+
+AI output is not a source. Do not cite a model, generated summary, or chatbot
+answer as evidence. Check every factual claim against the original record,
+review generated code and prose yourself, and confirm that no private data was
+introduced. The contributor remains responsible for the submitted change.
 
 ## Editing a case
 

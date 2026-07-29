@@ -23,6 +23,15 @@ case file distinguishes:
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a correction or new
 evidence.
 
+## AI disclosure
+
+AI tools have assisted with parts of the code, design, research organization,
+tests, and first drafts. Human maintainers decide what is published, verify
+claims against cited records, and remain responsible for the result. AI output
+is never treated as a source or independent verification.
+
+See [NOTICE.md](NOTICE.md) for the full project notice.
+
 ## Local development
 
 Requires Node.js `>=22.13.0`.
@@ -61,3 +70,4 @@ usernames that are not needed to attribute an official statement.
 - Code: [MIT](LICENSE)
 - Original editorial content: [CC BY 4.0](CONTENT-LICENSE.md)
 - Third-party documents and evidence remain subject to their original rights.
+- AI-assisted work: [project notice](NOTICE.md#ai-assisted-work)
