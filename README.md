@@ -35,6 +35,15 @@ npm test
 
 The site uses vinext and produces Cloudflare Worker-compatible output.
 
+## Design
+
+The interface adapts the visual language of
+[daddie.dev](https://daddie.dev): a near-black canvas, Montserrat typography,
+purple links and borders, gold offset controls, and red warning accents.
+
+The self-hosted Montserrat subset is distributed under the
+[SIL Open Font License](public/fonts/OFL.txt).
+
 ## Content
 
 Case content and its source registry live in
