@@ -1,28 +1,51 @@
 # nozzlegate.com
 
-A minimal static landing page for nozzlegate.com, built with vinext and
-Cloudflare-compatible tooling.
+An open-source, source-first consumer dossier covering:
 
-## Prerequisites
+1. the Bondtech INDX hardened-nozzle mismatch;
+2. reported payment-method surcharges; and
+3. warranty terms that may misstate or obscure EU consumer rights.
 
-- Node.js `>=22.13.0`
+The site also includes a step-by-step guide and Swedish templates for reporting
+marketing, pricing, and contract-term concerns to Konsumentverket.
 
-## Quick Start
+## Editorial position
+
+This project can be forceful without blurring evidence and allegation. Every
+case file distinguishes:
+
+- company-confirmed facts;
+- primary and preserved records;
+- community reports that still need an original document;
+- legal analysis; and
+- conclusions that only an authority or court can make.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a correction or new
+evidence.
+
+## Local development
+
+Requires Node.js `>=22.13.0`.
 
 ```bash
 npm install
 npm run dev
-npm run build
+npm test
 ```
 
-The page lives under `app/`, while `.openai/hosting.json` stores the Sites
-deployment metadata.
+The site uses vinext and produces Cloudflare Worker-compatible output.
 
-`cloudflare-worker.js` is the direct Cloudflare Worker entry point used for the
-public deployment.
+## Content
 
-## Useful Commands
+Case content and its source registry live in
+[`content/cases.ts`](content/cases.ts). Update the cited text, source entry, and
+verification date together.
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build and verify the rendered landing page
+Do not commit unredacted evidence containing payment details, addresses,
+signatures, support tokens, or unrelated personal information.
+
+## Licensing
+
+- Code: [MIT](LICENSE)
+- Original editorial content: [CC BY 4.0](CONTENT-LICENSE.md)
+- Third-party documents and evidence remain subject to their original rights.
