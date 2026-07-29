@@ -9,15 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function ReportPage() {
-  const {
-    hero,
-    notice,
-    stepsSection,
-    steps,
-    routeMap,
-    templatesSection,
-    remedy,
-  } = reportContent;
+  const { hero, notice, sharedRoute, guideSection, issueGuides, finish, remedy } =
+    reportContent;
 
   return (
     <main id="main-content">
@@ -48,82 +41,183 @@ export default function ReportPage() {
         </aside>
       </header>
 
-      <section className="report-steps">
-        <div className="section-heading">
+      <section
+        className="route-map route-map--compact"
+        aria-labelledby="route-map-title"
+      >
+        <div className="route-map__heading">
           <div>
-            <p className="eyebrow">{stepsSection.eyebrow}</p>
-            <h2>{stepsSection.title}</h2>
+            <p className="eyebrow">{sharedRoute.eyebrow}</p>
+            <h2 id="route-map-title">{sharedRoute.title}</h2>
           </div>
-          <p>{stepsSection.intro}</p>
-        </div>
-
-        <ol className="report-step-grid">
-          {steps.map((step) => (
-            <li key={step.number}>
-              <span>{step.number}</span>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="route-map" aria-labelledby="route-map-title">
-        <div>
-          <p className="eyebrow">{routeMap.eyebrow}</p>
-          <h2 id="route-map-title">{routeMap.title}</h2>
+          <div>
+            <p>{sharedRoute.intro}</p>
+            <small>{sharedRoute.verified}</small>
+          </div>
         </div>
         <ol>
-          {routeMap.items.map((item) => (
+          {sharedRoute.items.map((item) => (
             <li key={item.number}>
               <span>{item.number}</span>
               <strong>{item.title}</strong>
-              <p>{item.text}</p>
+              <small className="route-map__translation">
+                English: {item.titleTranslation}
+              </small>
+              <p className="route-map__choice">
+                <span>{item.text}</span>
+                <small>English: {item.textTranslation}</small>
+              </p>
             </li>
           ))}
         </ol>
       </section>
 
-      <section className="template-section">
+      <section className="issue-guide-section">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">{templatesSection.eyebrow}</p>
-            <h2>{templatesSection.title}</h2>
+            <p className="eyebrow">{guideSection.eyebrow}</p>
+            <h2>{guideSection.title}</h2>
           </div>
-          <p>{templatesSection.intro}</p>
+          <p>{guideSection.intro}</p>
         </div>
 
-        <div className="template-list">
-          {caseFiles.map((caseFile) => (
-            <details
-              className="report-template"
-              id={caseFile.slug}
-              key={caseFile.slug}
-            >
-              <summary className="report-template__head">
-                <div>
-                  <span>CASE {caseFile.number}</span>
-                  <h3>{caseFile.shortTitle}</h3>
-                </div>
-                <span className="report-template__toggle">
-                  <span className="report-template__open-label">
-                    Open template
+        <div className="issue-guide-list">
+          {issueGuides.map((guide) => {
+            const caseFile = caseFiles.find(
+              (entry) => entry.slug === guide.caseSlug,
+            );
+
+            if (!caseFile) {
+              throw new Error(`Missing case file for ${guide.caseSlug}`);
+            }
+
+            return (
+              <details
+                className="issue-guide"
+                id={guide.caseSlug}
+                key={guide.caseSlug}
+              >
+                <summary className="issue-guide__summary">
+                  <span className="issue-guide__case">
+                    CASE {caseFile.number}
                   </span>
-                  <span className="report-template__close-label">
-                    Close template
+                  <span className="issue-guide__title">
+                    <strong>{guide.title}</strong>
+                    <small>{guide.summary}</small>
                   </span>
-                  <b aria-hidden="true">+</b>
-                </span>
-              </summary>
-              <div className="report-template__body">
-                <div className="report-template__tools">
-                  <p>Replace the bracketed fields with your own details.</p>
-                  <CopyButton text={caseFile.reportTemplate} />
+                  <span className="issue-guide__toggle" aria-hidden="true">
+                    <span className="issue-guide__open-label">Open guide</span>
+                    <span className="issue-guide__close-label">
+                      Close guide
+                    </span>
+                    <b>+</b>
+                  </span>
+                </summary>
+
+                <div className="issue-guide__body">
+                  <ol className="issue-guide__steps">
+                    <li>
+                      <span className="issue-guide__number">1</span>
+                      <div>
+                        <p className="issue-guide__form-label">
+                          Vad vill du anmäla?
+                        </p>
+                        <h3>Identify the product and company.</h3>
+                        <dl className="issue-guide__fields">
+                          {guide.fields.map((field) => (
+                            <div key={field.label}>
+                              <dt>{field.label}</dt>
+                              <dd>{field.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                    </li>
+
+                    <li>
+                      <span className="issue-guide__number">2</span>
+                      <div>
+                        <p className="issue-guide__form-label">
+                          Vad har hänt?
+                        </p>
+                        <h3>Choose how you encountered it.</h3>
+                        <p className="issue-guide__answer">
+                          {guide.encounter}
+                        </p>
+                        <p>{guide.encounterNote}</p>
+                        <p>{guide.date}</p>
+
+                        <details className="report-template report-template--nested">
+                          <summary className="report-template__head">
+                            <div>
+                              <span>SWEDISH DRAFT</span>
+                              <h4>Text for “Berätta kort om händelsen”</h4>
+                            </div>
+                            <span className="report-template__toggle">
+                              <span className="report-template__open-label">
+                                Open draft
+                              </span>
+                              <span className="report-template__close-label">
+                                Close draft
+                              </span>
+                              <b aria-hidden="true">+</b>
+                            </span>
+                          </summary>
+                          <div className="report-template__body">
+                            <div className="report-template__tools">
+                              <p>
+                                Replace the bracketed fields. Remove anything
+                                that did not happen to you.
+                              </p>
+                              <CopyButton text={caseFile.reportTemplate} />
+                            </div>
+                            <pre>{caseFile.reportTemplate}</pre>
+                          </div>
+                        </details>
+                      </div>
+                    </li>
+
+                    <li>
+                      <span className="issue-guide__number">3</span>
+                      <div>
+                        <p className="issue-guide__form-label">Bifoga filer</p>
+                        <h3>Attach the proof you have.</h3>
+                        <ul className="issue-guide__evidence">
+                          {guide.attachments.map((attachment) => (
+                            <li key={attachment}>{attachment}</li>
+                          ))}
+                        </ul>
+                        <p>{finish.files}</p>
+                      </div>
+                    </li>
+
+                    <li>
+                      <span className="issue-guide__number">4</span>
+                      <div>
+                        <p className="issue-guide__form-label">
+                          Vem är drabbad?
+                        </p>
+                        <h3>Choose what you are comfortable sharing.</h3>
+                        <p>{finish.affected}</p>
+                        <p>{finish.contact}</p>
+                      </div>
+                    </li>
+
+                    <li>
+                      <span className="issue-guide__number">5</span>
+                      <div>
+                        <p className="issue-guide__form-label">
+                          Sammanfattning
+                        </p>
+                        <h3>Review, then send.</h3>
+                        <p>{finish.summary}</p>
+                      </div>
+                    </li>
+                  </ol>
                 </div>
-                <pre>{caseFile.reportTemplate}</pre>
-              </div>
-            </details>
-          ))}
+              </details>
+            );
+          })}
         </div>
       </section>
 

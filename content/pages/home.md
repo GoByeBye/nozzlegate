@@ -4,9 +4,8 @@ metadata:
   description: A source-first public record of the Bondtech INDX nozzle mismatch, payment surcharges and warranty terms, with a Swedish reporting guide.
 hero:
   eyebrow: Independent record · Bondtech INDX
-  headlineLine1: What Bondtech sold.
-  headlineLead: What owners
-  headlineEmphasis: got.
+  headlineLine1: Bondtech,
+  headlineEmphasis: documented.
   intro: Product claims, company statements, checkout evidence and the consumer rules that apply. Every claim links back to a source.
   primaryAction: See the three issues
   secondaryAction: How to report one

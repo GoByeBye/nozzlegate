@@ -14,7 +14,9 @@ export function SiteFooter() {
         <Link href="/#case-files">Case files</Link>
         <Link href="/report">Reporting guide</Link>
         <Link href="/contribute">Contribute</Link>
+        <Link href="/contribute#contact">Contact</Link>
         <Link href="/contribute#corrections">Corrections</Link>
+        <Link href="/privacy">Privacy</Link>
       </div>
 
       <div className="global-footer__meta">

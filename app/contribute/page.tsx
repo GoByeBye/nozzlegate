@@ -13,6 +13,7 @@ export default function ContributePage() {
     evidenceSection,
     evidenceLevels,
     guide,
+    contact,
     correction,
     license,
   } = contributeContent;
@@ -24,9 +25,19 @@ export default function ContributePage() {
           <p className="eyebrow">{hero.eyebrow}</p>
           <h1>{hero.title}</h1>
           <p>{hero.intro}</p>
-          <a className="button button--dark" href="#how-to-contribute">
-            {hero.action} <span aria-hidden="true">↓</span>
-          </a>
+          <div className="button-row">
+            <a className="button button--dark" href="#how-to-contribute">
+              {hero.action} <span aria-hidden="true">↓</span>
+            </a>
+            <a
+              className="text-link"
+              href={hero.githubHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {hero.githubAction} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
         <aside className="page-hero__notice page-hero__notice--dark">
           <strong>{notice.title}</strong>
@@ -78,6 +89,37 @@ export default function ContributePage() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="contact-section" id="contact">
+        <div>
+          <p className="eyebrow">{contact.eyebrow}</p>
+          <h2>{contact.title}</h2>
+          <p className="contact-section__intro">{contact.intro}</p>
+        </div>
+
+        <div className="contact-methods">
+          {contact.methods.map((method) => (
+            <a
+              className="contact-method"
+              href={method.href}
+              key={method.label}
+              target={method.external ? "_blank" : undefined}
+              rel={method.external ? "noreferrer" : undefined}
+            >
+              <span>{method.label}</span>
+              <strong>{method.value}</strong>
+              <small>{method.text}</small>
+              <b>
+                {method.action} <span aria-hidden="true">↗</span>
+              </b>
+            </a>
+          ))}
+          <p className="contact-section__note">
+            {contact.note}{" "}
+            <a href={contact.privacyHref}>{contact.privacyAction}.</a>
+          </p>
         </div>
       </section>
 

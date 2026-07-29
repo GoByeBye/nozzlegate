@@ -7,6 +7,8 @@ hero:
   title: Add evidence or fix a mistake.
   intro: Link the original source, explain what it proves and say what it does not prove. That is enough.
   action: See what to include
+  githubAction: Open the GitHub project
+  githubHref: https://github.com/GoByeBye/nozzlegate
 notice:
   title: Protect people
   text: Never publish full card numbers, addresses, phone numbers, signatures, passwords, support tokens, unrelated order data or unnecessary community usernames.
@@ -53,6 +55,26 @@ guide:
       textBefore: Run
       code: npm test
       textAfter: " before opening a pull request. Explain any source that cannot be independently opened."
+contact:
+  eyebrow: Contact
+  title: Send it directly.
+  intro: If the evidence should not go straight into a public pull request, reach out privately instead.
+  note: This website itself does not submit or store messages. Email and Discord hand you off to those services, which process anything you send.
+  privacyAction: Read the privacy notice
+  privacyHref: /privacy
+  methods:
+    - label: Discord
+      value: Join the Nozzlegate Discord
+      text: Join the project community to share a lead or ask how to contribute.
+      action: Join the server
+      href: https://discord.gg/7Aqk5x8kFc
+      external: true
+    - label: Email
+      value: contact.nozzlegate@f22.no
+      text: Send links or attach a carefully redacted copy of the evidence.
+      action: Write an email
+      href: mailto:contact.nozzlegate@f22.no
+      external: false
 correction:
   eyebrow: Correction policy
   title: Corrections belong in the record.

@@ -27,7 +27,7 @@ export default function Home() {
             <h1>
               {hero.headlineLine1}
               <br />
-              {hero.headlineLead} <em>{hero.headlineEmphasis}</em>
+              <em>{hero.headlineEmphasis}</em>
             </h1>
             <p className="home-hero__intro">{hero.intro}</p>
             <div className="button-row">

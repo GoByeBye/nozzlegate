@@ -14,6 +14,20 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  // This site does not need request-level logs or traces. Keep the generated
+  // deployment config explicit so Cloudflare's default does not enable them.
+  observability: {
+    enabled: false,
+    logs: {
+      enabled: false,
+      invocation_logs: false,
+      persist: false,
+    },
+    traces: {
+      enabled: false,
+      persist: false,
+    },
+  },
   d1_databases: d1
     ? [
         {

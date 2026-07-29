@@ -1,6 +1,7 @@
 import { parse } from "yaml";
 import contributeDocument from "./pages/contribute.md?raw";
 import homeDocument from "./pages/home.md?raw";
+import privacyDocument from "./pages/privacy.md?raw";
 import reportDocument from "./pages/report.md?raw";
 
 type PageMetadata = {
@@ -14,12 +15,16 @@ type NumberedItem = {
   text: string;
 };
 
+type TranslatedNumberedItem = NumberedItem & {
+  titleTranslation: string;
+  textTranslation: string;
+};
+
 export type HomeContent = {
   metadata: PageMetadata;
   hero: {
     eyebrow: string;
     headlineLine1: string;
-    headlineLead: string;
     headlineEmphasis: string;
     intro: string;
     primaryAction: string;
@@ -77,21 +82,36 @@ export type ReportContent = {
     action: string;
     href: string;
   };
-  stepsSection: {
+  sharedRoute: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    verified: string;
+    items: TranslatedNumberedItem[];
+  };
+  guideSection: {
     eyebrow: string;
     title: string;
     intro: string;
   };
-  steps: NumberedItem[];
-  routeMap: {
-    eyebrow: string;
+  issueGuides: Array<{
+    caseSlug: string;
     title: string;
-    items: NumberedItem[];
-  };
-  templatesSection: {
-    eyebrow: string;
-    title: string;
-    intro: string;
+    summary: string;
+    fields: Array<{
+      label: string;
+      value: string;
+    }>;
+    encounter: string;
+    encounterNote: string;
+    date: string;
+    attachments: string[];
+  }>;
+  finish: {
+    files: string;
+    affected: string;
+    contact: string;
+    summary: string;
   };
   remedy: {
     eyebrow: string;
@@ -117,6 +137,8 @@ export type ContributeContent = {
     title: string;
     intro: string;
     action: string;
+    githubAction: string;
+    githubHref: string;
   };
   notice: {
     title: string;
@@ -137,6 +159,22 @@ export type ContributeContent = {
     title: string;
     steps: ContributionStep[];
   };
+  contact: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    note: string;
+    privacyAction: string;
+    privacyHref: string;
+    methods: Array<{
+      label: string;
+      value: string;
+      text: string;
+      action: string;
+      href: string;
+      external: boolean;
+    }>;
+  };
   correction: {
     eyebrow: string;
     title: string;
@@ -147,6 +185,31 @@ export type ContributeContent = {
     title: string;
     text: string;
   };
+};
+
+export type PrivacyContent = {
+  metadata: PageMetadata;
+  hero: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    updated: string;
+  };
+  facts: Array<{
+    label: string;
+    value: string;
+    text: string;
+  }>;
+  sections: Array<{
+    id: string;
+    number: string;
+    title: string;
+    paragraphs: string[];
+    links?: Array<{
+      label: string;
+      href: string;
+    }>;
+  }>;
 };
 
 function parsePage<T extends object>(document: string, filename: string): T {
@@ -182,4 +245,8 @@ export const reportContent = parsePage<ReportContent>(
 export const contributeContent = parsePage<ContributeContent>(
   contributeDocument,
   "content/pages/contribute.md",
+);
+export const privacyContent = parsePage<PrivacyContent>(
+  privacyDocument,
+  "content/pages/privacy.md",
 );
