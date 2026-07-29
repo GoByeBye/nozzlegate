@@ -1,23 +1,24 @@
 ---
 title: Bondtech Discord hardness exchange
-recordType: Contributor-supplied transcript
+displayTitle: The “hardened” nozzle exchange
+deck: The 17 July discussion where Bondtech’s stated 30–32 HRC was compared with the harder-nozzle standard and the product label was defended.
+recordType: Maintainer-verified transcript
 attributedCompanyRespondent: Gustav
 attributedChannel: Bondtech Discord
 attributedDate: 17 July 2026
 attributedTimeRange: 19:45–20:02
 timezone: Not supplied
 submitted: 29 July 2026
-verification: Original message link or screenshot not supplied
+verification: Verified by the site operator; submitted by a trusted contributor
 privacy: Community usernames replaced with neutral participant labels
 ---
 
 # Bondtech Discord hardness exchange
 
-> This is a contributor-supplied transcript. The exact wording and account
-> identity have not been independently verified from the primary messages.
-> Community usernames are redacted as a privacy-minimising measure. The
-> attributed company respondent is retained because those statements are the
-> subject of the record.
+> This transcript was submitted by a trusted contributor and verified by the
+> site operator. Community usernames are redacted as a privacy-minimising
+> measure. The attributed company respondent is retained because those
+> statements are the subject of the record.
 
 Bondtech’s current team page identifies Gustav Bondéus as Head of
 Manufacturing, not the Head of Engineering role supplied by the contributor:

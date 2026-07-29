@@ -75,6 +75,73 @@ function CitedParagraph({
   );
 }
 
+function RenderedEvidenceLinks({
+  ids,
+  sources,
+}: {
+  ids: string[];
+  sources: CaseSource[];
+}) {
+  const records = ids
+    .map((id) => sources.find((source) => source.id === id))
+    .filter(
+      (source): source is CaseSource =>
+        Boolean(
+          source &&
+            source.kind === "Evidence" &&
+            source.href.startsWith("/evidence/") &&
+            !/\.[a-z0-9]{2,5}$/i.test(source.href),
+        ),
+    );
+
+  if (!records.length) {
+    return null;
+  }
+
+  return (
+    <div className="evidence-record-links" aria-label="Rendered evidence">
+      {records.map((record) => (
+        <Link href={record.href} key={record.id}>
+          Read rendered transcript <span aria-hidden="true">↗</span>
+          <span className="sr-only">: {record.title}</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function RenderedRecordStrip({ sources }: { sources: CaseSource[] }) {
+  const records = sources.filter(
+    (source) =>
+      source.kind === "Evidence" &&
+      source.href.startsWith("/evidence/") &&
+      !/\.[a-z0-9]{2,5}$/i.test(source.href),
+  );
+
+  if (!records.length) {
+    return null;
+  }
+
+  return (
+    <nav
+      className="case-record-strip"
+      aria-label="Rendered Discord transcripts"
+    >
+      <div className="case-record-strip__intro">
+        <span>Discord transcripts</span>
+        <p>Readable records with verification and privacy notes attached.</p>
+      </div>
+      {records.map((record, index) => (
+        <Link href={record.href} key={record.id}>
+          <span>Record {String(index + 1).padStart(2, "0")}</span>
+          <strong>{record.displayTitle ?? record.title}</strong>
+          <small>Open transcript ↗</small>
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
 function CaseDisclosure({
   children,
   count,
@@ -184,6 +251,8 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             </div>
           </section>
 
+          <RenderedRecordStrip sources={caseFile.sources} />
+
           <div className="case-disclosures">
             <CaseDisclosure
               id="evidence"
@@ -207,6 +276,10 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                           sources={caseFile.sources}
                         />
                       </p>
+                      <RenderedEvidenceLinks
+                        ids={item.sourceIds}
+                        sources={caseFile.sources}
+                      />
                       {item.image ? (
                         <figure className="evidence-figure">
                           <Image

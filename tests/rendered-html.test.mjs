@@ -74,13 +74,84 @@ test("server-renders a cited case file", async () => {
   assert.match(html, /proper hardened nozzles will be available/i);
   assert.match(
     html,
-    /bondtech-discord-hardness-exchange-2026-07-17\.md/i,
+    /href="\/evidence\/bondtech-discord-hardness-exchange-2026-07-17"/i,
   );
   assert.match(
     html,
-    /bondtech-discord-hardened-statement-2026-07-23\.md/i,
+    /href="\/evidence\/bondtech-discord-hardened-statement-2026-07-23"/i,
+  );
+  assert.match(html, /Read rendered transcript/i);
+  assert.match(html, /aria-label="Rendered Discord transcripts"/i);
+  assert.match(html, /17 July — hardness exchange/i);
+  assert.match(html, /23 July — company statement/i);
+  assert.match(html, /Open transcript/i);
+  assert.doesNotMatch(
+    html,
+    /href="\/evidence\/bondtech-discord-[^"]+\.md"/i,
   );
   assert.match(html, /Legal context/i);
+});
+
+test("renders Discord Markdown as readable evidence records", async () => {
+  const exchange = await htmlFor(
+    "/evidence/bondtech-discord-hardness-exchange-2026-07-17",
+  );
+
+  assert.match(exchange, /17 July Discord record \| Nozzlegate/i);
+  assert.match(exchange, /The “hardened” nozzle exchange/i);
+  assert.match(exchange, /Maintainer-verified transcript/i);
+  assert.match(
+    exchange,
+    /class="transcript-status transcript-status--verified"/i,
+  );
+  assert.match(exchange, /Verified transcript/i);
+  assert.match(exchange, /Verified by the site operator/i);
+  assert.match(exchange, /submitted by a trusted contributor/i);
+  assert.match(exchange, /20(?:<!-- -->)? recorded messages/i);
+  assert.match(exchange, /Community member 1/i);
+  assert.match(exchange, /Attributed company response/i);
+  assert.match(
+    exchange,
+    /class="transcript-message transcript-message--company"/i,
+  );
+  assert.match(exchange, /View raw source \(\.md\)/i);
+  assert.match(
+    exchange,
+    /href="\/evidence\/bondtech-discord-hardness-exchange-2026-07-17\.md"/i,
+  );
+
+  const statement = await htmlFor(
+    "/evidence/bondtech-discord-hardened-statement-2026-07-23",
+  );
+
+  assert.match(statement, /23 July Discord record \| Nozzlegate/i);
+  assert.match(statement, /not what we promised/i);
+  assert.match(statement, /Maintainer-verified transcript/i);
+  assert.match(
+    statement,
+    /class="transcript-status transcript-status--verified"/i,
+  );
+  assert.match(statement, /Verified transcript/i);
+  assert.match(statement, /Verified by the site operator/i);
+  assert.match(statement, /submitted by a trusted contributor/i);
+  assert.match(statement, /2(?:<!-- -->)? recorded messages/i);
+  assert.match(statement, /Follow-up included in the submitted transcript/i);
+});
+
+test("keeps raw Markdown transcript URLs available", async () => {
+  const response = await render(
+    "/evidence/bondtech-discord-hardness-exchange-2026-07-17.md",
+  );
+
+  assert.equal(response.status, 200);
+  assert.match(
+    response.headers.get("content-type") ?? "",
+    /^text\/markdown\b/i,
+  );
+  const markdown = await response.text();
+  assert.match(markdown, /^---\r?\ntitle: Bondtech Discord hardness exchange/);
+  assert.match(markdown, /Community usernames are redacted/i);
+  assert.match(markdown, /verified by the site operator/i);
 });
 
 test("links contributors to the GitHub project", async () => {
@@ -168,7 +239,7 @@ test("keeps editorial case records in Markdown", async () => {
 test("redacts community usernames from the public Discord transcript", async () => {
   const transcript = await readFile(
     new URL(
-      "../public/evidence/bondtech-discord-hardness-exchange-2026-07-17.md",
+      "../content/transcripts/bondtech-discord-hardness-exchange-2026-07-17.md",
       import.meta.url,
     ),
     "utf8",

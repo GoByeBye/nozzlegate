@@ -1,22 +1,23 @@
 # Bondtech Discord hardness exchange, 17 July 2026
 
-- Public transcript:
-  `public/evidence/bondtech-discord-hardness-exchange-2026-07-17.md`
+- Canonical public transcript:
+  `content/transcripts/bondtech-discord-hardness-exchange-2026-07-17.md`
 - SHA-256:
-  `5CDBBA99747594DF8E46FB0BF410BB1058401531E6B3F2C448E01854A84BD6D6`
+  `43AF3233AC05B845CA4C5A74B53EA195D052BB3006C4493C71319B912430E99F`
 - Submitted: 29 July 2026
 - Attributed author of company replies: Gustav
 - Attributed channel: Bondtech Discord
 - Attributed timestamps: 17 July 2026, 19:45–20:02
 - Timestamp timezone: not supplied
 - Role supplied by contributor: Head of Engineering
-- Verification status: contributor-supplied transcript
+- Submitted by: trusted contributor
+- Verification status: verified by the site operator
 - Privacy treatment: non-company usernames replaced with stable, neutral
   participant labels
 
-No Discord message link or original screenshot accompanied this submission.
-The transcript alone does not establish the account identity or the supplied
-role.
+The site operator verified the submitted transcript and its attribution. The
+public copy keeps non-company usernames redacted. The supplied role is recorded
+separately because Bondtech's current team page uses a different title.
 
 Bondtech's current team page identifies Gustav Bondéus as Head of Manufacturing,
 not Head of Engineering:
@@ -32,7 +33,7 @@ comparison and the central product mismatch:
 
 ## Evidentiary value
 
-If authentic, the exchange records a company representative stating that:
+The verified exchange records a company representative stating that:
 
 - the supplied nozzles measured 30–32 on the Rockwell C scale;
 - nozzles commonly marketed as hardened measure 55–60 HRC;
@@ -52,11 +53,11 @@ The supplied transcript writes the hardness abbreviation as `HCR`. The
 transcript is preserved verbatim. The later official update and the surrounding
 context use the conventional `HRC` form.
 
-## Requested primary evidence
+## Verification and privacy
 
-A full, uncropped screenshot or Discord message link showing the server,
-channel, author profile, timestamps and surrounding messages would allow direct
-verification.
+The transcript was submitted by a trusted contributor and verified by the site
+operator. The public record does not expose the contributor or community
+participants.
 
 The unredacted participant handles are not published in the repository. The
 attributed company respondent is retained because those statements are the

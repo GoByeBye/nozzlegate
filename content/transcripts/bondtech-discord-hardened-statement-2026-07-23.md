@@ -1,20 +1,23 @@
 ---
 title: Bondtech Discord hardened-nozzle statement
-recordType: Contributor-supplied transcript
+displayTitle: “We sold a nozzle that was not what we promised.”
+deck: The 23 July statement attributed to Bondtech, followed by the later link to the company’s public update.
+recordType: Maintainer-verified transcript
 attributedCompanyRespondent: Gustav
 attributedChannel: Bondtech Discord
 attributedDate: 23 July 2026
 attributedFirstTimestamp: 08:22
 timezone: Not supplied
 submitted: 29 July 2026
-verification: Original message link or screenshot not supplied
+verification: Verified by the site operator; submitted by a trusted contributor
+privacy: Community usernames omitted; company respondent retained
 ---
 
 # Bondtech Discord hardened-nozzle statement
 
-> This is a contributor-supplied transcript. The exact Discord wording and
-> attribution have not been independently verified from an original message
-> link or screenshot. Bondtech’s
+> This transcript was submitted by a trusted contributor and verified by the
+> site operator. The company respondent is retained because the statement is
+> the subject of this record. Bondtech’s
 > [official 29 July update](https://www.bondtech.se/2026/07/29/indx-hardened-nozzles-update/)
 > independently corroborates the central product mismatch.
 

@@ -31,12 +31,12 @@ summary:
   - text: A refund is expressly offered as an option. Bondtech had no concrete compensation plan on the update date and said a true hardened INDX nozzle was still a long way from serial production.
     sourceIds:
       - ng-company-update
-  - text: "A contributor-supplied 17 July transcript attributes an earlier position to a Bondtech staff account named Gustav: 30–32 HRC was contrasted with the 55–60 HRC expected of marketed hardened nozzles, the supplied tool was compared with a standard brass option, “proper hardened nozzles” were promised later, and a free exchange was rejected. The original messages still need primary verification; existing reporting reproduces the central exchange and Bondtech’s official update confirms the hardness comparison."
+  - text: "A 17 July transcript, submitted by a trusted contributor and verified by the site operator, records an earlier position from a Bondtech staff account named Gustav: 30–32 HRC was contrasted with the 55–60 HRC expected of marketed hardened nozzles, the supplied tool was compared with a standard brass option, “proper hardened nozzles” were promised later, and a free exchange was rejected. Existing reporting reproduces the central exchange and Bondtech’s official update confirms the hardness comparison."
     sourceIds:
       - ng-discord-july17
       - ng-investigation
       - ng-company-update
-  - text: "A second contributor-supplied transcript, dated 23 July, marks a change in tone: it says the nozzle did not meet the industry standard for “hardened,” admits that it was not what was promised, and says affected owners would be made right. No message link or original screenshot accompanied either transcript, so both remain explicitly labelled as contributor-supplied evidence."
+  - text: "A second verified transcript, dated 23 July, marks a change in tone: it says the nozzle did not meet the industry standard for “hardened,” admits that it was not what was promised, and says affected owners would be made right. It was also submitted by a trusted contributor and verified by the site operator."
     sourceIds:
       - ng-discord-transcript
       - ng-company-update
@@ -60,7 +60,7 @@ evidence:
       - ng-company-update
   - label: 23 July position
     title: A later Discord transcript records ownership of the mismatch
-    text: Six days later, the second submitted transcript quotes Gustav saying, “We sold a nozzle that was not what we promised,” and promising to make affected owners right. Attribution still needs a message link or original screenshot, but the later official update corroborates the core technical admission.
+    text: Six days later, the second verified transcript quotes Gustav saying, “We sold a nozzle that was not what we promised,” and promising to make affected owners right. It was submitted by a trusted contributor and verified by the site operator; the later official update also corroborates the core technical admission.
     sourceIds:
       - ng-discord-transcript
       - ng-company-update
@@ -93,7 +93,7 @@ timeline:
       - ng-archived-product
   - date: 17 Jul 2026
     title: Hardness gap stated and the label defended
-    text: A contributor-supplied Discord transcript attributes the 30–32 versus 55–60 HRC comparison to Gustav. It also records “proper hardened nozzles” as a later product, rejects a free exchange at that point and maintains that the existing hardened label was technically acceptable.
+    text: A trusted contributor submitted a Discord transcript, verified by the site operator, that records the 30–32 versus 55–60 HRC comparison from Gustav. It also records “proper hardened nozzles” as a later product, rejects a free exchange at that point and maintains that the existing hardened label was technically acceptable.
     sourceIds:
       - ng-discord-july17
       - ng-investigation
@@ -104,7 +104,7 @@ timeline:
       - ng-investigation
   - date: 23 Jul 2026
     title: Discord statement attributed to Bondtech
-    text: A contributor-supplied transcript attributes an apology and acknowledgement of the non-standard hardened claim to Gustav. The transcript is preserved with an explicit verification caveat.
+    text: A trusted contributor submitted a transcript, verified by the site operator, that records an apology and acknowledgement of the non-standard hardened claim from Gustav.
     sourceIds:
       - ng-discord-transcript
   - date: 29 Jul 2026
@@ -126,7 +126,6 @@ openQuestions:
   - Will truly hardened replacements be supplied without further payment?
   - What independent wear-test protocol and results will be published?
   - Which serial numbers, Prusa batches and packaging revisions contain which nozzle treatment?
-  - Can contributors provide original Discord message links or full, uncropped screenshots for the 17 and 23 July exchanges?
 sources:
   - id: ng-company-update
     title: INDX – Hardened Nozzles Update
@@ -135,15 +134,17 @@ sources:
     kind: Company
     checked: 29 Jul 2026
   - id: ng-discord-july17
-    title: Bondtech Discord hardness exchange — contributor-supplied transcript
-    publisher: Attributed to Gustav / Bondtech Discord
-    href: /evidence/bondtech-discord-hardness-exchange-2026-07-17.md
+    title: Bondtech Discord hardness exchange — verified transcript
+    displayTitle: 17 July — hardness exchange
+    publisher: Trusted contributor / verified by site operator
+    href: /evidence/bondtech-discord-hardness-exchange-2026-07-17
     kind: Evidence
     checked: 29 Jul 2026
   - id: ng-discord-transcript
-    title: Bondtech Discord nozzle statement — contributor-supplied transcript
-    publisher: Attributed to Gustav / Bondtech Discord
-    href: /evidence/bondtech-discord-hardened-statement-2026-07-23.md
+    title: Bondtech Discord nozzle statement — verified transcript
+    displayTitle: 23 July — company statement
+    publisher: Trusted contributor / verified by site operator
+    href: /evidence/bondtech-discord-hardened-statement-2026-07-23
     kind: Evidence
     checked: 29 Jul 2026
   - id: ng-archived-product

@@ -53,8 +53,10 @@ validation logic, not the editorial record.
 - Keep quotes short. Prefer a precise paraphrase plus a link to the full source.
 - Do not call conduct illegal, fraudulent, criminal, or deceptive unless an
   authoritative decision supports that exact description.
-- Keep public evidence transcripts as Markdown and record every redaction in
-  the matching provenance file under [`evidence`](evidence/README.md).
+- Keep public evidence transcripts as Markdown under
+  [`content/transcripts`](content/transcripts/README.md), and record every
+  redaction in the matching provenance file under
+  [`evidence`](evidence/README.md).
 
 Homepage and guide copy is also Markdown under
 [`content/pages`](content/pages/README.md). Keep factual and instructional copy

@@ -22,6 +22,7 @@ export type SourceKind =
 export type CaseSource = {
   id: string;
   title: string;
+  displayTitle?: string;
   publisher: string;
   href: string;
   kind: SourceKind;
@@ -257,6 +258,9 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
     invariant(isRecord(source), `${location} must be an object`);
     for (const key of ["id", "title", "publisher", "href", "checked"]) {
       hasString(source, key, location);
+    }
+    if (source.displayTitle !== undefined) {
+      hasString(source, "displayTitle", location);
     }
     invariant(
       typeof source.kind === "string" &&
