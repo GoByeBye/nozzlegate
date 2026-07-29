@@ -22,49 +22,16 @@ type TranslatedNumberedItem = NumberedItem & {
 
 export type HomeContent = {
   metadata: PageMetadata;
-  hero: {
-    eyebrow: string;
-    headlineLine1: string;
-    headlineEmphasis: string;
-    intro: string;
-    primaryAction: string;
-    secondaryAction: string;
-  };
-  docket: {
-    label: string;
-    reference: string;
-    markTop: string;
-    markBottom: string;
-    stats: Array<{ label: string; value: string }>;
-    verifiedLabel: string;
-    verifiedDate: string;
-    verifiedDisplay: string;
-  };
   caseSection: {
     eyebrow: string;
     title: string;
     intro: string;
   };
-  confirmation: {
+  actions: Array<{
     label: string;
-    quote: string;
-    sourceLabel: string;
-    action: string;
-    href: string;
-  };
-  standardsSection: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    action: string;
-    standards: NumberedItem[];
-  };
-  reportBanner: {
-    eyebrow: string;
-    title: string;
     text: string;
-    action: string;
-  };
+    href: string;
+  }>;
 };
 
 export type ReportContent = {

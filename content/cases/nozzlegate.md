@@ -4,8 +4,8 @@ number: "01"
 shortTitle: Nozzlegate
 category: Product representation
 title: Sold as hardened. Bondtech later said they weren’t.
-deck: Bondtech sold INDX tools as hardened and safe for abrasive filament. On 29 July it said the shipped nozzles were not truly hardened.
-status: Company-confirmed
+deck: Bondtech sold INDX nozzles as hardened, then said the shipped parts were “not truly hardened.”
+status: Company confirmed
 statusTone: confirmed
 statusNote: Bondtech confirmed the product mismatch
 updated: 29 July 2026
@@ -75,6 +75,11 @@ evidence:
     text: Bondtech says buyers may return the INDX for a refund, while asking them to consider keeping it for a future upgrade offer. No date, price or replacement commitment was provided.
     sourceIds:
       - ng-company-update
+  - label: Discord moderation dispute
+    title: A community member says criticism was followed by a Discord ban
+    text: On 29 July, a Discord participant posted screenshots of three short messages criticizing Bondtech’s nozzle response and asking for an exchange. The author later said they had been banned. A verified Prusa-linked account replied that bans were likely limited to spam or rule violations and offered to help; it did not confirm why this account was banned. The screenshots do not show who acted, the reason, or that any messages were deleted. We record this as a reported moderation action, not proof of a policy to suppress criticism.
+    sourceIds:
+      - ng-founder-ban-report
 timeline:
   - date: 29 Nov 2025
     title: Pre-order record
@@ -126,6 +131,7 @@ openQuestions:
   - Will truly hardened replacements be supplied without further payment?
   - What independent wear-test protocol and results will be published?
   - Which serial numbers, Prusa batches and packaging revisions contain which nozzle treatment?
+  - Were critical messages removed or other community members banned, and what server rule or reason was recorded for each moderation action?
 sources:
   - id: ng-company-update
     title: INDX – Hardened Nozzles Update
@@ -169,6 +175,12 @@ sources:
     title: "INDX Founders: orders are open"
     publisher: r/prusa3d
     href: https://www.reddit.com/r/prusa3d/comments/1ryxfu6/indx_founders_orders_are_open/
+    kind: Community
+    checked: 29 Jul 2026
+  - id: ng-founder-ban-report
+    title: Community report of Discord ban after nozzle criticism
+    publisher: Chaz Makes / XCancel mirror
+    href: https://xcancel.com/ChazMakes/status/2082458067426242868
     kind: Community
     checked: 29 Jul 2026
   - id: ng-consumer-sales-law

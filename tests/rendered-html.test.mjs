@@ -40,20 +40,38 @@ test("server-renders the source-first home page", async () => {
     html,
     /<title>Nozzlegate — the open consumer record \| Nozzlegate<\/title>/i,
   );
-  assert.match(html, /Bondtech,/i);
-  assert.match(html, /documented\./i);
-  assert.match(html, /Start with the facts\./i);
-  assert.match(html, /Every claim should be verifiable\./i);
+  assert.match(html, /<h1>Start with the facts\.<\/h1>/i);
   assert.match(html, /href="\/cases\/nozzlegate"/i);
   assert.match(html, /href="\/cases\/payment-surcharges"/i);
   assert.match(html, /href="\/cases\/warranty-terms"/i);
+  assert.doesNotMatch(html, /#nozzlegate|#cardfees|#warrantyterms/i);
+  assert.doesNotMatch(html, />CASE 0[1-3]</i);
+  assert.doesNotMatch(
+    html,
+    /Product representation|Pricing and checkout|Terms and consumer rights/i,
+  );
+  assert.match(html, /Company confirmed/i);
+  assert.match(html, /Privately confirmed/i);
+  assert.match(html, /Terms under review/i);
+  assert.match(html, /2–3% card fee/i);
+  assert.match(html, /Bondtech added a 2–3% card fee\./i);
+  assert.match(
+    html,
+    /Bondtech’s warranty says 90 days\. Consumer rights can be a lot longer\./i,
+  );
+  assert.match(html, /Open the reporting guide/i);
+  assert.match(html, /Contribute evidence/i);
+  assert.doesNotMatch(
+    html,
+    /The units shipped with the INDX are not truly hardened|Every claim should be verifiable|Read the contribution guide|This is a living record/i,
+  );
   assert.match(
     html,
     /made with spite &amp; anger by[\s\S]*href="https:\/\/daddie\.dev"/i,
   );
   assert.doesNotMatch(
     html,
-    /codex-preview|Your site is taking shape|react-loading-skeleton/i,
+    /Independent record · Bondtech INDX|Bondtech, documented|Current dossier status|codex-preview|Your site is taking shape|react-loading-skeleton/i,
   );
 });
 
@@ -61,12 +79,10 @@ test("server-renders a cited case file", async () => {
   const html = await htmlFor("/cases/nozzlegate");
 
   assert.match(html, /Case 01 — Nozzlegate \| Nozzlegate/i);
-  assert.match(
-    html,
-    /Sold as hardened\. Bondtech later said they weren’t\./i,
-  );
   assert.match(html, /30–32 HRC/i);
-  assert.match(html, /What happened/i);
+  assert.match(html, /<h1>What happened<\/h1>/i);
+  assert.doesNotMatch(html, /class="article-hero"/i);
+  assert.doesNotMatch(html, /aria-label="Case snapshot"/i);
   assert.match(html, /Documents and statements/i);
   assert.match(html, /<details class="case-disclosure"/i);
   assert.doesNotMatch(html, /<details class="case-disclosure"[^>]* open/i);
@@ -86,11 +102,65 @@ test("server-renders a cited case file", async () => {
   assert.match(html, /17 July — hardness exchange/i);
   assert.match(html, /23 July — company statement/i);
   assert.match(html, /Open transcript/i);
+  assert.match(
+    html,
+    /A community member says criticism was followed by a Discord ban/i,
+  );
+  assert.match(html, /reported moderation action/i);
+  assert.match(html, /not proof of a policy to suppress criticism/i);
+  assert.match(html, /any messages were deleted/i);
+  assert.match(
+    html,
+    /href="https:\/\/xcancel\.com\/ChazMakes\/status\/2082458067426242868"/i,
+  );
   assert.doesNotMatch(
     html,
     /href="\/evidence\/bondtech-discord-[^"]+\.md"/i,
   );
   assert.match(html, /Legal context/i);
+  assert.match(html, /Report this to Konsumentverket\./i);
+  assert.match(
+    html,
+    /Konsumentverket is Sweden’s consumer protection authority\./i,
+  );
+});
+
+test("keeps long-form case pages readable in dark mode", async () => {
+  const css = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(css, /--accent:\s*#a79fff/i);
+  assert.match(css, /--gold:\s*var\(--accent\)/i);
+  assert.match(css, /--red-text:\s*#ff6b66/i);
+  assert.match(
+    css,
+    /:root\s*{[^}]*--background:\s*#0b0b0d[^}]*--foreground:\s*#f7f7f8/is,
+  );
+  assert.doesNotMatch(css, /\.article-layout\s*{[^}]*--background:/is);
+  assert.doesNotMatch(css, /--background:\s*#f6f5fa/i);
+  assert.match(css, /\.prose p\s*{[^}]*max-width:\s*68ch/is);
+  assert.match(
+    css,
+    /\.case-summary\s*{[^}]*max-width:\s*none[^}]*margin:\s*0 0 68px/is,
+  );
+  assert.match(css, /\.case-grid\s*{[^}]*align-items:\s*stretch/is);
+  assert.match(css, /\.case-card\s*{[^}]*height:\s*100%/is);
+  assert.match(css, /\.case-card__link\s*{[^}]*height:\s*100%/is);
+  assert.match(
+    css,
+    /\.case-card__link\s*{[^}]*min-height:\s*0[^}]*padding:\s*20px/is,
+  );
+  assert.match(
+    css,
+    /\.case-card \.status\s*{[^}]*color:\s*var\(--foreground-soft\)/is,
+  );
+  assert.doesNotMatch(css, /#ffd700|rgb\(255 215 0/i);
+  assert.doesNotMatch(
+    css,
+    /@media \(max-width: 980px\)[\s\S]{0,400}\.site-nav\s*{\s*display:\s*none/is,
+  );
 });
 
 test("renders Discord Markdown as readable evidence records", async () => {
@@ -281,7 +351,9 @@ test("redacts community usernames from the public Discord transcript", async () 
 test("server-renders the submitted Sweden payment-fee comparison", async () => {
   const html = await htmlFor("/cases/payment-surcharges");
 
-  assert.match(html, /Charge privately confirmed/i);
+  assert.match(html, /Buyers privately confirmed/i);
+  assert.doesNotMatch(html, /class="article-hero"/i);
+  assert.doesNotMatch(html, /aria-label="Case snapshot"/i);
   assert.match(html, /Sweden selected/i);
   assert.match(html, /28\.01 kr/i);
   assert.match(html, /Fee for PayPal/i);
@@ -437,4 +509,16 @@ test("server-renders the reporting guide and official form link", async () => {
   assert.match(html, /Jag vill anmäla anonymt/i);
   assert.match(html, /Bondtech AB \(org\.nr 556995-5643\)/i);
   assert.match(html, /does not send personal feedback/i);
+});
+
+test("opens the reporting guide selected by the URL fragment", async () => {
+  const opener = await readFile(
+    new URL("../app/components/HashGuideOpener.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(opener, /window\.location\.hash\.slice\(1\)/i);
+  assert.match(opener, /target instanceof HTMLDetailsElement/i);
+  assert.match(opener, /guide\.open = guide === target/i);
+  assert.match(opener, /addEventListener\("hashchange", openMatchingGuide\)/i);
 });

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CopyButton } from "../components/CopyButton";
+import { HashGuideOpener } from "../components/HashGuideOpener";
 import { caseFiles } from "../../content/cases";
 import { reportContent } from "../../content/pages";
 
@@ -22,6 +23,7 @@ export default function ReportPage() {
 
   return (
     <main id="main-content">
+      <HashGuideOpener />
       <header className="page-hero page-hero--report">
         <div>
           <p className="eyebrow">{hero.eyebrow}</p>

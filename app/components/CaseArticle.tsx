@@ -196,53 +196,10 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
   return (
     <main id="main-content">
       <article>
-        <header className="article-hero">
-          <div className="article-hero__inner">
-            <div className="article-breadcrumb">
-              <Link href="/">Nozzlegate</Link>
-              <span aria-hidden="true">/</span>
-              <span>Case {caseFile.number}</span>
-            </div>
-
-            <div className="article-hero__grid">
-              <div>
-                <div className="article-statusline">
-                  <span className={`status status--${caseFile.statusTone}`}>
-                    {caseFile.status}
-                  </span>
-                  <span>{caseFile.statusNote}</span>
-                </div>
-                <p className="eyebrow eyebrow--light">{caseFile.category}</p>
-                <h1>{caseFile.title}</h1>
-                <p className="article-hero__deck">{caseFile.deck}</p>
-              </div>
-
-              <div className="lead-fact">
-                <span className="lead-fact__case">Key figure</span>
-                <strong>{caseFile.leadFact}</strong>
-                <p>{caseFile.leadLabel}</p>
-                <div className="lead-fact__meta">
-                  <span>Updated {caseFile.updated}</span>
-                  <span>{caseFile.sources.length} sources</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <section className="case-facts" aria-label="Case snapshot">
-          {caseFile.metrics.map((metric) => (
-            <div className="case-facts__item" key={metric.label}>
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-            </div>
-          ))}
-        </section>
-
         <div className="article-layout">
           <section className="case-summary" id="short-version">
             <p className="section-number">QUICK READ</p>
-            <h2>What happened</h2>
+            <h1>What happened</h1>
             <div className="prose prose--lead">
               {quickSummary.map((paragraph) => (
                 <CitedParagraph
@@ -518,13 +475,13 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             <p className="eyebrow">Bought an INDX?</p>
             <h2>
               {caseFile.remedy
-                ? "Recover the fee—or report it."
-                : "Report what happened."}
+                ? "Ask for a refund—or report the card fee to Konsumentverket."
+                : "Report this to Konsumentverket."}
             </h2>
             <p>
               {caseFile.remedy
-                ? "The refund path is for your money. The reporting guide is for the wider checkout practice."
-                : "The Swedish guide covers what to save, where to send it and what to write."}
+                ? "The refund steps are for recovering your fee. The reporting guide is for alerting Sweden’s consumer protection authority to the checkout practice."
+                : "Konsumentverket is Sweden’s consumer protection authority. The guide shows what evidence to save and how to submit a report."}
             </p>
           </div>
           <div className="article-action__links">
@@ -539,7 +496,7 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             >
               {caseFile.remedy
                 ? "Report to Konsumentverket"
-                : "Open the guide"}{" "}
+                : "Open the reporting guide"}{" "}
               <span aria-hidden="true">↗</span>
             </Link>
           </div>

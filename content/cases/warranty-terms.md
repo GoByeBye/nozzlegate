@@ -3,9 +3,9 @@ slug: warranty-terms
 number: "03"
 shortTitle: Warranty terms
 category: Terms and consumer rights
-title: A 90-day warranty is not a 90-day legal limit.
-deck: Bondtech offers a 90-day warranty. That does not replace the legal rights Swedish and EU consumers may have when a product is faulty.
-status: Terms need review
+title: Bondtech’s warranty says 90 days. Consumer rights can be a lot longer.
+deck: The terms do not clearly explain that statutory consumer rights can continue after 90 days.
+status: Terms under review
 statusTone: analysis
 statusNote: The warranty and statutory rights are different things
 updated: 29 July 2026

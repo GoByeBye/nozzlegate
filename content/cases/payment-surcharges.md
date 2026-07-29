@@ -3,15 +3,15 @@ slug: payment-surcharges
 number: "02"
 shortTitle: Payment surcharges
 category: Pricing and checkout
-title: The checkout added a card fee.
-deck: In a Sweden checkout, selecting card added a 28.01 kr line labelled “Fee for Credit Card (Stripe).” The same amount appeared as a PayPal fee when PayPal was selected.
-status: Charge privately confirmed
+title: Bondtech added a 2–3% card fee.
+deck: Submitted checkouts show the fee, and buyers privately confirmed it remained on completed orders.
+status: Privately confirmed
 statusTone: documented
 statusNote: Completed card charges privately confirmed · Visa, Mastercard and Amex
 updated: 29 July 2026
 readTime: 7 min
-leadFact: 28.01 kr
-leadLabel: Card-labelled fee shown with Sweden selected
+leadFact: 2–3% card fee
+leadLabel: Approximate range across submitted card-payment examples
 metrics:
   - value: 2.56%
     label: Fee as a share of the displayed 1,094.88 kr subtotal
