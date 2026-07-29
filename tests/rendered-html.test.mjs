@@ -136,7 +136,7 @@ test("disables persisted Cloudflare Worker logs and traces", async () => {
   assert.equal(config.observability?.logs?.persist, false);
   assert.equal(config.observability?.traces?.enabled, false);
   assert.equal(config.observability?.traces?.persist, false);
-  assert.equal(config.images?.binding, "IMAGES");
+  assert.equal(config.images, undefined);
 });
 
 test("keeps editorial case records in Markdown", async () => {
@@ -204,6 +204,11 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
   assert.match(html, /bondtech-sweden-checkout-card-selected\.png/i);
   assert.match(html, /bondtech-sweden-checkout-paypal-selected\.png/i);
   assert.match(html, /bondtech-eu-card-fee-checkout\.png/i);
+  assert.match(
+    html,
+    /src="\/evidence\/bondtech-sweden-checkout-card-selected\.png"/i,
+  );
+  assert.doesNotMatch(html, /\/_vinext\/image\?/i);
   assert.match(html, /Your Europe \/ European Union/i);
   assert.match(html, /evidence still stops at checkout/i);
 });

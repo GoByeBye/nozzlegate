@@ -215,6 +215,7 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                             width={item.image.width}
                             height={item.image.height}
                             sizes="(max-width: 680px) calc(100vw - 32px), 860px"
+                            unoptimized
                           />
                           <figcaption>{item.image.caption}</figcaption>
                         </figure>
