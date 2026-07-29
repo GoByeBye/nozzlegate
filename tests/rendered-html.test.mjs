@@ -208,6 +208,8 @@ test("disables persisted Cloudflare Worker logs and traces", async () => {
   assert.equal(config.observability?.logs?.persist, false);
   assert.equal(config.observability?.traces?.enabled, false);
   assert.equal(config.observability?.traces?.persist, false);
+  assert.equal(config.workers_dev, false);
+  assert.equal(config.preview_urls, false);
   assert.equal(config.images, undefined);
 });
 

@@ -14,6 +14,10 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  // Production is served only through nozzlegate.com. Keep Wrangler defaults
+  // from silently re-enabling workers.dev and per-version preview addresses.
+  workers_dev: false,
+  preview_urls: false,
   // This site does not need request-level logs or traces. Keep the generated
   // deployment config explicit so Cloudflare's default does not enable them.
   observability: {
