@@ -331,6 +331,19 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
   assert.match(html, /id="remedy"/i);
   assert.match(html, /Ask Bondtech to refund the card fee/i);
   assert.match(html, /This is a fee-only refund request/i);
+  assert.match(html, /not a citizenship test/i);
+  assert.match(
+    html,
+    /check the consumer and payment rules where you live and where the payment was made/i,
+  );
+  assert.match(
+    html,
+    /otherwise adapt the draft to your local regulations/i,
+  );
+  assert.match(
+    html,
+    /https:\/\/eur-lex\.europa\.eu\/legal-content\/EN\/TXT\/\?uri=celex:02015L2366-20151223/i,
+  );
   assert.match(html, /Fourteen calendar days is a reasonable practical deadline/i);
   assert.match(html, /not a special statutory refund period/i);
   assert.match(html, /href="mailto:order@bondtech\.se"/i);

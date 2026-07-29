@@ -139,10 +139,11 @@ timeline:
       - fee-bondtech-terms
 legalTitle: Clear rule for covered cards; exact coverage still depends on the card and account
 legalAnalysis:
-  - text: "For a covered consumer debit or credit card payment in the EU, the official rule is clear: the trader cannot add a fee because that card was used. A report is strongest when it includes the invoice, buyer country, card type, currency, date and a comparison with another payment method."
+  - text: "For a covered consumer debit or credit card payment in the EU/EEA, the official rule generally prohibits a fee added because the card was used. This protection is not defined by the buyer’s citizenship. Its scope can depend on the payment, including where the payment-service providers are located, the currency and the card type. If the payment falls outside EU/EEA rules—or you are unsure—check the consumer and payment rules where you live and where the payment was made."
     sourceIds:
       - fee-eu-guidance
       - fee-eu-consumer-guidance
+      - fee-psd2-scope
       - fee-kov
       - fee-payment-law
   - text: The Sweden images establish the checkout state and a card-labelled fee. Private buyer confirmations report that completed orders retained the fee across Visa, Mastercard and American Express; those receipts are not public. That resolves which card schemes buyers encountered as a factual matter, but it does not make their legal treatment identical. Business or corporate cards, PayPal fees, foreign-exchange costs and customs charges can raise different legal questions.
@@ -157,11 +158,14 @@ legalAnalysis:
 remedy:
   title: Ask Bondtech to refund the card fee
   intro:
-    text: If Bondtech added a separately itemised card fee, ask for that fee to be refunded while keeping the underlying order. Swedish law states that a payee may not charge the payer for using a payment instrument.
+    text: If Bondtech added a separately itemised card fee, ask for that fee to be refunded while keeping the underlying order. This guide relies on EU/EEA and Swedish payment rules. They are not a citizenship test; coverage depends on the payment context and card type.
     sourceIds:
+      - fee-eu-guidance
+      - fee-eu-consumer-guidance
+      - fee-psd2-scope
       - fee-payment-law
       - fee-kov
-  note: This is a fee-only refund request. It is not a cancellation, return or dispute of the full purchase. Use the card-fee line shown on your own receipt.
+  note: Use this guide only for a covered EU/EEA consumer card payment. If any part of the payment falls outside the EU/EEA—or you are unsure—check the consumer and payment rules where you live and where the payment was made before relying on the template. This is a fee-only refund request, not a cancellation or return.
   steps:
     - title: Save the evidence
       text: Keep a clean copy of everything that shows what was ordered and what reached the card account.
@@ -208,7 +212,7 @@ remedy:
     - title: Ask your card issuer about a fee-only card complaint
       text: Ask whether it accepts a card complaint or chargeback for only the card fee. Do not dispute the full purchase unless you are also challenging it. Eligibility depends on the card and issuer, and deadlines can be short.
   templateTitle: Card-fee refund email
-  templateNote: Replace every bracketed field with the details from your own order before sending.
+  templateNote: Replace every bracketed field with the details from your own order before sending. Check that EU/EEA rules cover your payment; otherwise adapt the draft to your local regulations.
   emailTemplate: |-
     Subject: Request for refund of card fee — Order [ORDER NUMBER]
 
@@ -304,6 +308,12 @@ sources:
     publisher: Your Europe / European Union
     href: https://europa.eu/youreurope/citizens/consumers/shopping/pricing-payments/index_en.htm
     kind: Authority
+    checked: 29 Jul 2026
+  - id: fee-psd2-scope
+    title: Directive (EU) 2015/2366 — payment-services scope and card charges
+    publisher: EUR-Lex / European Union
+    href: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:02015L2366-20151223
+    kind: Law
     checked: 29 Jul 2026
   - id: fee-kov
     title: Får butiken ta en avgift när du betalar med kort?
