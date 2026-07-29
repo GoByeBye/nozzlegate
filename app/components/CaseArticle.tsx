@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CopyButton } from "./CopyButton";
 import type {
+  CaseActionLink,
   CaseFile,
   CaseSource,
   CitedText,
@@ -139,6 +141,31 @@ function RenderedRecordStrip({ sources }: { sources: CaseSource[] }) {
         </Link>
       ))}
     </nav>
+  );
+}
+
+function RemedyLinks({ links }: { links?: CaseActionLink[] }) {
+  if (!links?.length) {
+    return null;
+  }
+
+  return (
+    <div className="case-remedy__links">
+      {links.map((link) => {
+        const external = /^https?:/i.test(link.href);
+
+        return (
+          <a
+            href={link.href}
+            key={link.href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noreferrer" : undefined}
+          >
+            {link.label} <span aria-hidden="true">↗</span>
+          </a>
+        );
+      })}
+    </div>
   );
 }
 
@@ -344,6 +371,103 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
               </div>
             </CaseDisclosure>
 
+            {caseFile.remedy ? (
+              <CaseDisclosure
+                id="remedy"
+                label="Recovery path"
+                title={caseFile.remedy.title}
+                count={`${caseFile.remedy.steps.length} steps`}
+              >
+                <div className="case-remedy">
+                  <div className="case-remedy__intro">
+                    <CitedParagraph
+                      paragraph={caseFile.remedy.intro}
+                      sources={caseFile.sources}
+                    />
+                    <p className="case-remedy__boundary">
+                      {caseFile.remedy.note}
+                    </p>
+                  </div>
+
+                  <ol className="case-remedy__steps">
+                    {caseFile.remedy.steps.map((step, index) => (
+                      <li key={step.title}>
+                        <span className="case-remedy__number">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div>
+                          <h3>{step.title}</h3>
+                          <p>
+                            {step.text}
+                            <Citations
+                              ids={step.sourceIds}
+                              sources={caseFile.sources}
+                            />
+                          </p>
+                          {step.bullets?.length ? (
+                            <ul>
+                              {step.bullets.map((bullet) => (
+                                <li key={bullet}>{bullet}</li>
+                              ))}
+                            </ul>
+                          ) : null}
+                          <RemedyLinks links={step.links} />
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <section className="case-remedy__escalation">
+                    <div className="case-remedy__escalation-heading">
+                      <p className="eyebrow">Still unresolved?</p>
+                      <h3>{caseFile.remedy.escalationTitle}</h3>
+                      <p>{caseFile.remedy.escalationIntro}</p>
+                    </div>
+                    <div className="case-remedy__routes">
+                      {caseFile.remedy.escalation.map((route) => (
+                        <article key={route.title}>
+                          <h4>{route.title}</h4>
+                          <p>
+                            {route.text}
+                            <Citations
+                              ids={route.sourceIds}
+                              sources={caseFile.sources}
+                            />
+                          </p>
+                          <RemedyLinks links={route.links} />
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+
+                  <details className="report-template case-remedy__template">
+                    <summary className="report-template__head">
+                      <div>
+                        <span>EMAIL DRAFT</span>
+                        <h4>{caseFile.remedy.templateTitle}</h4>
+                      </div>
+                      <span className="report-template__toggle">
+                        <span className="report-template__open-label">
+                          Open draft
+                        </span>
+                        <span className="report-template__close-label">
+                          Close draft
+                        </span>
+                        <b aria-hidden="true">+</b>
+                      </span>
+                    </summary>
+                    <div className="report-template__body">
+                      <div className="report-template__tools">
+                        <p>{caseFile.remedy.templateNote}</p>
+                        <CopyButton text={caseFile.remedy.emailTemplate} />
+                      </div>
+                      <pre>{caseFile.remedy.emailTemplate}</pre>
+                    </div>
+                  </details>
+                </div>
+              </CaseDisclosure>
+            ) : null}
+
             <CaseDisclosure
               id="open-questions"
               label="Still missing"
@@ -392,18 +516,33 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
         <section className="article-action">
           <div>
             <p className="eyebrow">Bought an INDX?</p>
-            <h2>Report what happened.</h2>
+            <h2>
+              {caseFile.remedy
+                ? "Recover the fee—or report it."
+                : "Report what happened."}
+            </h2>
             <p>
-              The Swedish guide covers what to save, where to send it and what
-              to write.
+              {caseFile.remedy
+                ? "The refund path is for your money. The reporting guide is for the wider checkout practice."
+                : "The Swedish guide covers what to save, where to send it and what to write."}
             </p>
           </div>
-          <Link
-            className="button button--dark"
-            href={`/report#${caseFile.slug}`}
-          >
-            Open the guide <span aria-hidden="true">↗</span>
-          </Link>
+          <div className="article-action__links">
+            {caseFile.remedy ? (
+              <a className="button button--dark" href="#remedy">
+                See refund steps <span aria-hidden="true">↓</span>
+              </a>
+            ) : null}
+            <Link
+              className={caseFile.remedy ? "text-link" : "button button--dark"}
+              href={`/report#${caseFile.slug}`}
+            >
+              {caseFile.remedy
+                ? "Report to Konsumentverket"
+                : "Open the guide"}{" "}
+              <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </section>
       </article>
     </main>

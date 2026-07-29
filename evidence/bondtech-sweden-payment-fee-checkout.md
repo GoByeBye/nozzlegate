@@ -13,6 +13,10 @@
 - Submitted: 29 July 2026
 - Provenance statement: the contributor explicitly stated that both
   screenshots were provided by them
+- Private confirmation: a buyer later confirmed that the completed card order
+  retained the displayed card fee
+- Private card-scheme confirmation: buyers confirmed completed card fees when
+  paying with Visa, Mastercard, and American Express
 - Reuse status: no separate copyright or reuse permission was stated
 
 ## Visible in both captures
@@ -41,6 +45,12 @@ Sweden selected.
 The captures do not show a transaction date, completed order, invoice, charged
 payment, or the card scheme and whether it was a consumer or corporate card.
 They also do not show what happens when Prepaid (SEK) or Klarna is selected.
+
+Buyers have since privately confirmed that completed card orders retained the
+displayed fee when paying with Visa, Mastercard, and American Express. The
+scheme-specific receipts are not published in this repository. The private
+confirmations do not establish whether any card was a consumer, business, or
+corporate account.
 
 Because the same 28.01 kr amount appears under both the PayPal and card labels,
 the images do not establish that the amount is unique to card payments. They do

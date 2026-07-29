@@ -7,7 +7,7 @@ const caseFile = getCaseFile("payment-surcharges");
 export const metadata: Metadata = {
   title: "Case 02 — Payment surcharges",
   description:
-    "Documented Bondtech card-fee reports, the Swedish rule against consumer card surcharges and the evidence still needed.",
+    "Documented Bondtech card-fee charges, applicable consumer rules, and steps for requesting a fee refund or reporting the practice.",
 };
 
 export default function PaymentSurchargesCasePage() {

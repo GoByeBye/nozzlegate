@@ -9,8 +9,16 @@ export const metadata: Metadata = {
 };
 
 export default function ReportPage() {
-  const { hero, notice, sharedRoute, guideSection, issueGuides, finish, remedy } =
-    reportContent;
+  const {
+    hero,
+    notice,
+    whyReport,
+    sharedRoute,
+    guideSection,
+    issueGuides,
+    finish,
+    remedy,
+  } = reportContent;
 
   return (
     <main id="main-content">
@@ -40,6 +48,28 @@ export default function ReportPage() {
           </a>
         </aside>
       </header>
+
+      <section
+        className="why-report-section"
+        aria-labelledby="why-report-title"
+      >
+        <div>
+          <p className="eyebrow">{whyReport.eyebrow}</p>
+          <h2 id="why-report-title">{whyReport.title}</h2>
+        </div>
+        <div className="why-report-section__body">
+          <p>{whyReport.text}</p>
+          <p className="why-report-section__note">{whyReport.note}</p>
+          <a
+            className="text-link"
+            href={whyReport.href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {whyReport.action} <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </section>
 
       <section
         className="route-map route-map--compact"

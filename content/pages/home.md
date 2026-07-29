@@ -36,7 +36,7 @@ confirmation:
   href: https://www.bondtech.se/2026/07/29/indx-hardened-nozzles-update/
 standardsSection:
   eyebrow: How this site works
-  title: Every claim should be checkable.
+  title: Every claim should be verifiable.
   intro: If a source is incomplete, disputed or only a community report, the page says so.
   action: Read the contribution guide
   standards:

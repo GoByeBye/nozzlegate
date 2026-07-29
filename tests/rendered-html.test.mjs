@@ -43,6 +43,7 @@ test("server-renders the source-first home page", async () => {
   assert.match(html, /Bondtech,/i);
   assert.match(html, /documented\./i);
   assert.match(html, /Start with the facts\./i);
+  assert.match(html, /Every claim should be verifiable\./i);
   assert.match(html, /href="\/cases\/nozzlegate"/i);
   assert.match(html, /href="\/cases\/payment-surcharges"/i);
   assert.match(html, /href="\/cases\/warranty-terms"/i);
@@ -224,6 +225,18 @@ test("keeps editorial case records in Markdown", async () => {
     assert.match(markdown, /^---\r?\nslug:/);
     assert.match(markdown, /\nsources:\r?\n/);
     assert.match(markdown, /\nreportTemplate:/);
+    if (slug === "payment-surcharges") {
+      assert.match(markdown, /\nremedy:\r?\n/);
+      assert.match(markdown, /\n  emailTemplate: \|-/);
+      const remedyBlock = markdown.match(
+        /\nremedy:\r?\n[\s\S]*?(?=\nopenQuestions:)/,
+      )?.[0];
+      assert.ok(remedyBlock, "payment remedy block should be present");
+      assert.doesNotMatch(
+        remedyBlock,
+        /Forbruker|\bamounts?\b|\[FEE AMOUNT\]|\[TOTAL CHARGED\]|\$|€|\b(?:USD|EUR|SEK|NOK)\b/i,
+      );
+    }
   }
 
   for (const page of ["home", "report", "contribute", "privacy"]) {
@@ -266,22 +279,85 @@ test("redacts community usernames from the public Discord transcript", async () 
 test("server-renders the submitted Sweden payment-fee comparison", async () => {
   const html = await htmlFor("/cases/payment-surcharges");
 
-  assert.match(html, /Checkout captured/i);
+  assert.match(html, /Charge privately confirmed/i);
   assert.match(html, /Sweden selected/i);
   assert.match(html, /28\.01 kr/i);
   assert.match(html, /Fee for PayPal/i);
   assert.match(html, /€4\.45/i);
+  assert.match(html, /\$15\.02/i);
   assert.match(html, /Fee for Credit Card \(Stripe\)/i);
   assert.match(html, /bondtech-sweden-checkout-card-selected\.png/i);
   assert.match(html, /bondtech-sweden-checkout-paypal-selected\.png/i);
   assert.match(html, /bondtech-eu-card-fee-checkout\.png/i);
+  assert.match(html, /bondtech-usd-card-fee-order-summary\.png/i);
+  assert.match(html, /authorized, redacted copy showing the date and card scheme can be provided/i);
+  assert.match(
+    html,
+    /completed US-dollar card receipt also retained its displayed fee/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /Does a completed card order retain the 28\.01 kr fee/i,
+  );
+  assert.match(
+    html,
+    /completed card orders retained the fee across Visa, Mastercard and American Express/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /Was the selected card a covered Visa or Mastercard consumer card/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /Can a buyer authorize a redacted receipt showing the date and card scheme/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /Norway buyer|Norwegian buyer|Bondtech Norway order/i,
+  );
+  assert.match(html, /2 questions/i);
   assert.match(
     html,
     /src="\/evidence\/bondtech-sweden-checkout-card-selected\.png"/i,
   );
   assert.doesNotMatch(html, /\/_vinext\/image\?/i);
   assert.match(html, /Your Europe \/ European Union/i);
-  assert.match(html, /evidence still stops at checkout/i);
+  assert.match(
+    html,
+    /exact coverage still depends on the card and account/i,
+  );
+  assert.match(html, /id="remedy"/i);
+  assert.match(html, /Ask Bondtech to refund the card fee/i);
+  assert.match(html, /This is a fee-only refund request/i);
+  assert.match(html, /Fourteen calendar days is a reasonable practical deadline/i);
+  assert.match(html, /not a special statutory refund period/i);
+  assert.match(html, /href="mailto:order@bondtech\.se"/i);
+  assert.match(html, /https:\/\/www\.bondtech\.se\/contact\//i);
+  assert.match(
+    html,
+    /https:\/\/commission\.europa\.eu\/topics\/consumers\/consumer-rights-and-complaints\/resolve-your-consumer-complaint\/european-consumer-centres-network-ecc-net_en/i,
+  );
+  assert.match(
+    html,
+    /If you live in the EU, Iceland or Norway/i,
+  );
+  assert.match(
+    html,
+    /https:\/\/www\.konsumentverket\.se\/om-oss\/anmala-till-konsumentverket\//i,
+  );
+  assert.match(html, /Find your European Consumer Centre/i);
+  assert.match(html, /Card-fee refund email/i);
+  assert.match(
+    html,
+    /requesting a refund of the card fee charged on Order/i,
+  );
+  assert.doesNotMatch(html, /requesting a partial refund of/i);
+  assert.match(
+    html,
+    /En betalningsmottagare får inte ta ut någon avgift av betalaren/i,
+  );
+  assert.match(html, /I am not cancelling or returning the underlying order/i);
+  assert.doesNotMatch(html, /107343/);
 });
 
 test("server-renders the reporting guide and official form link", async () => {
@@ -289,6 +365,13 @@ test("server-renders the reporting guide and official form link", async () => {
 
   assert.match(html, /Report it to Konsumentverket\./i);
   assert.match(html, /Reporting a Swedish company/i);
+  assert.match(
+    html,
+    /reporting Bondtech AB to Konsumentverket, Sweden’s consumer authority/i,
+  );
+  assert.match(html, /Who receives the report\?/i);
+  assert.match(html, /Your report goes to Konsumentverket/i);
+  assert.match(html, /Open the Konsumentverket form/i);
   assert.match(html, /You do not need to be Swedish or an EU\/EEA citizen/i);
   assert.match(
     html,
@@ -315,6 +398,16 @@ test("server-renders the reporting guide and official form link", async () => {
     /Contracts, pricing, sales methods and marketing/i,
   );
   assert.match(html, /Then follow the matching route/i);
+  assert.match(html, /Why report to Konsumentverket\?/i);
+  assert.match(html, /basis for supervision of a company/i);
+  assert.match(
+    html,
+    /https:\/\/www\.konsumentverket\.se\/marknadsratt-foretag\/konsumentverkets-tillsyn\//i,
+  );
+  assert.match(
+    html,
+    /does not guarantee an investigation, a fix or a refund/i,
+  );
   assert.equal(
     (html.match(/<details class="issue-guide"/gi) ?? []).length,
     3,

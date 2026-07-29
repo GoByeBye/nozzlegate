@@ -5,14 +5,21 @@ metadata:
 hero:
   eyebrow: Reporting a Swedish company
   title: Report it to Konsumentverket.
-  intro: Save the receipt, show exactly what happened and attach the document that proves it. This guide walks through the form.
-  action: Open the official form
+  intro: This guide walks you through reporting Bondtech AB to Konsumentverket, Sweden’s consumer authority. Save the receipt, show exactly what happened and attach the document that proves it.
+  action: Open the Konsumentverket form
   href: https://anmalan.konsumentverket.se/flow/anmalning-start
 notice:
-  title: Who can report
-  text: You do not need to be Swedish or an EU/EEA citizen. Foreign consumers can report conduct by Bondtech AB. Konsumentverket uses reports as tips for supervision; it does not resolve your personal refund claim.
+  title: Who receives the report?
+  text: Your report goes to Konsumentverket. You do not need to be Swedish or an EU/EEA citizen. Foreign consumers can report conduct by Bondtech AB. The authority uses reports as tips for supervision; it does not resolve your personal refund claim.
   action: Official explanation
   href: https://www.konsumentverket.se/om-oss/anmala-till-konsumentverket/
+whyReport:
+  eyebrow: Why this matters
+  title: Why report to Konsumentverket?
+  text: Konsumentverket uses reports to monitor the market, and a report can become the basis for supervision of a company. Clear, well-documented reports help the authority see whether the same problem may be affecting more than one buyer.
+  note: A report does not guarantee an investigation, a fix or a refund. It gives the authority a documented account it can use now or later.
+  action: How supervision works
+  href: https://www.konsumentverket.se/marknadsratt-foretag/konsumentverkets-tillsyn/
 sharedRoute:
   eyebrow: Checked against the live form
   title: Start with the same two choices.

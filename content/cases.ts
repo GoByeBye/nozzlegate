@@ -34,6 +34,30 @@ export type CitedText = {
   sourceIds?: string[];
 };
 
+export type CaseActionLink = {
+  label: string;
+  href: string;
+};
+
+export type CaseRemedyItem = CitedText & {
+  title: string;
+  bullets?: string[];
+  links?: CaseActionLink[];
+};
+
+export type CaseRemedy = {
+  title: string;
+  intro: CitedText;
+  note: string;
+  steps: CaseRemedyItem[];
+  escalationTitle: string;
+  escalationIntro: string;
+  escalation: CaseRemedyItem[];
+  templateTitle: string;
+  templateNote: string;
+  emailTemplate: string;
+};
+
 export type CaseFile = {
   slug: CaseSlug;
   number: string;
@@ -74,6 +98,7 @@ export type CaseFile = {
   }>;
   legalTitle: string;
   legalAnalysis: CitedText[];
+  remedy?: CaseRemedy;
   openQuestions: string[];
   sources: CaseSource[];
   reportTemplate: string;
@@ -131,6 +156,29 @@ function assertCitedText(value: unknown, location: string) {
   hasString(value, "text", location);
   if (value.sourceIds !== undefined) {
     assertStringArray(value.sourceIds, `${location}.sourceIds`);
+  }
+}
+
+function assertActionLink(value: unknown, location: string) {
+  invariant(isRecord(value), `${location} must be an object`);
+  hasString(value, "label", location);
+  hasString(value, "href", location);
+}
+
+function assertRemedyItem(value: unknown, location: string) {
+  assertCitedText(value, location);
+  invariant(isRecord(value), `${location} must be an object`);
+  hasString(value, "title", location);
+
+  if (value.bullets !== undefined) {
+    assertStringArray(value.bullets, `${location}.bullets`);
+  }
+
+  if (value.links !== undefined) {
+    invariant(Array.isArray(value.links), `${location}.links must be an array`);
+    value.links.forEach((link, index) =>
+      assertActionLink(link, `${location}.links[${index}]`),
+    );
   }
 }
 
@@ -249,6 +297,38 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
   parsed.legalAnalysis.forEach((item, index) =>
     assertCitedText(item, `${slug}.legalAnalysis[${index}]`),
   );
+
+  if (parsed.remedy !== undefined) {
+    invariant(isRecord(parsed.remedy), `${slug}.remedy must be an object`);
+    for (const key of [
+      "title",
+      "note",
+      "escalationTitle",
+      "escalationIntro",
+      "templateTitle",
+      "templateNote",
+      "emailTemplate",
+    ]) {
+      hasString(parsed.remedy, key, `${slug}.remedy`);
+    }
+    assertCitedText(parsed.remedy.intro, `${slug}.remedy.intro`);
+    invariant(
+      Array.isArray(parsed.remedy.steps) && parsed.remedy.steps.length > 0,
+      `${slug}.remedy.steps must be a non-empty array`,
+    );
+    parsed.remedy.steps.forEach((item, index) =>
+      assertRemedyItem(item, `${slug}.remedy.steps[${index}]`),
+    );
+    invariant(
+      Array.isArray(parsed.remedy.escalation) &&
+        parsed.remedy.escalation.length > 0,
+      `${slug}.remedy.escalation must be a non-empty array`,
+    );
+    parsed.remedy.escalation.forEach((item, index) =>
+      assertRemedyItem(item, `${slug}.remedy.escalation[${index}]`),
+    );
+  }
+
   assertStringArray(parsed.openQuestions, `${slug}.openQuestions`);
 
   invariant(Array.isArray(parsed.sources), `${slug}.sources must be an array`);
@@ -301,6 +381,28 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
       sourceIds,
       `${slug}.legalAnalysis[${index}]`,
     );
+  }
+  if (parsed.remedy !== undefined) {
+    const remedy = parsed.remedy as CaseRemedy;
+    assertSourceIds(
+      remedy.intro.sourceIds,
+      sourceIds,
+      `${slug}.remedy.intro`,
+    );
+    for (const [index, item] of remedy.steps.entries()) {
+      assertSourceIds(
+        item.sourceIds,
+        sourceIds,
+        `${slug}.remedy.steps[${index}]`,
+      );
+    }
+    for (const [index, item] of remedy.escalation.entries()) {
+      assertSourceIds(
+        item.sourceIds,
+        sourceIds,
+        `${slug}.remedy.escalation[${index}]`,
+      );
+    }
   }
 
   return Object.freeze(parsed) as CaseFile;

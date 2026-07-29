@@ -82,6 +82,14 @@ export type ReportContent = {
     action: string;
     href: string;
   };
+  whyReport: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    note: string;
+    action: string;
+    href: string;
+  };
   sharedRoute: {
     eyebrow: string;
     title: string;

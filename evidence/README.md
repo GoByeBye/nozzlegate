@@ -26,5 +26,6 @@ company statement, and document why.
 
 - [Bondtech Sweden payment-fee checkout captures](bondtech-sweden-payment-fee-checkout.md)
 - [Bondtech euro credit-card fee checkout capture](bondtech-eu-card-fee-checkout.md)
+- [Bondtech USD card-fee order and private confirmation](bondtech-usd-card-fee-order-summary.md)
 - [Bondtech Discord hardness exchange, 17 July 2026](bondtech-discord-hardness-exchange-2026-07-17.md)
 - [Bondtech Discord hardened-nozzle statement](bondtech-discord-hardened-statement-2026-07-23.md)
