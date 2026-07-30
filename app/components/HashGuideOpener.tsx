@@ -4,6 +4,10 @@ import { useEffect } from "react";
 
 export function HashGuideOpener() {
   useEffect(() => {
+    const guides = Array.from(
+      document.querySelectorAll<HTMLDetailsElement>(".issue-guide"),
+    );
+
     const openMatchingGuide = () => {
       const rawId = window.location.hash.slice(1);
 
@@ -28,17 +32,38 @@ export function HashGuideOpener() {
         return;
       }
 
-      document
-        .querySelectorAll<HTMLDetailsElement>(".issue-guide")
-        .forEach((guide) => {
-          guide.open = guide === target;
-        });
+      guides.forEach((guide) => {
+        guide.open = guide === target;
+      });
+    };
+
+    const keepOneGuideOpen = (event: Event) => {
+      const openedGuide = event.currentTarget;
+
+      if (
+        !(openedGuide instanceof HTMLDetailsElement) ||
+        !openedGuide.open
+      ) {
+        return;
+      }
+
+      guides.forEach((guide) => {
+        if (guide !== openedGuide) {
+          guide.open = false;
+        }
+      });
     };
 
     openMatchingGuide();
+    guides.forEach((guide) => {
+      guide.addEventListener("toggle", keepOneGuideOpen);
+    });
     window.addEventListener("hashchange", openMatchingGuide);
 
     return () => {
+      guides.forEach((guide) => {
+        guide.removeEventListener("toggle", keepOneGuideOpen);
+      });
       window.removeEventListener("hashchange", openMatchingGuide);
     };
   }, []);

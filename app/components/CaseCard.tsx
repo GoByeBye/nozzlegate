@@ -9,7 +9,10 @@ export function CaseCard({ caseFile }: CaseCardProps) {
     <article className="case-card">
       <a className="case-card__link" href={`/cases/${caseFile.slug}`}>
         <div className="case-card__topline">
-          <span className={`status status--${caseFile.statusTone}`}>
+          <span
+            className="status status--neutral"
+            data-status-tone={caseFile.statusTone}
+          >
             {caseFile.status}
           </span>
         </div>
@@ -23,8 +26,8 @@ export function CaseCard({ caseFile }: CaseCardProps) {
         </div>
 
         <div className="case-card__footer">
-          <span>Open case</span>
-          <span aria-hidden="true">↗</span>
+          <span>Details &amp; evidence</span>
+          <span aria-hidden="true">→</span>
         </div>
       </a>
     </article>

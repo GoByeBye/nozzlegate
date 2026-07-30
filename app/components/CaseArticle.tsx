@@ -491,13 +491,13 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
               </a>
             ) : null}
             <Link
-              className={caseFile.remedy ? "text-link" : "button button--dark"}
+              className="button button--solid"
               href={`/report#${caseFile.slug}`}
             >
               {caseFile.remedy
                 ? "Report to Konsumentverket"
-                : "Open the reporting guide"}{" "}
-              <span aria-hidden="true">↗</span>
+                : "Open the reporting steps"}{" "}
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </section>

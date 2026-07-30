@@ -101,7 +101,7 @@ export function TranscriptViewer({ record }: TranscriptViewerProps) {
           <div className="article-breadcrumb">
             <Link href="/">Nozzlegate</Link>
             <span aria-hidden="true">/</span>
-            <Link href="/cases/nozzlegate">Case 01</Link>
+            <Link href="/cases/nozzlegate">Nozzlegate issue</Link>
             <span aria-hidden="true">/</span>
             <span>Discord record</span>
           </div>

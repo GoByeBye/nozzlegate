@@ -35,7 +35,7 @@ guide:
   steps:
     - number: "01"
       title: State one change
-      text: Name the case file and the exact sentence, date, source or status that should change.
+      text: Name the issue page and the exact sentence, date, source or status that should change.
     - number: "02"
       title: Attach provenance
       text: Provide the original URL, capture date, author or sender, and explain how the document came into your possession.

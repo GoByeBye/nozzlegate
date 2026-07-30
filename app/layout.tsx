@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Nozzlegate",
     title: "Nozzlegate — the open consumer record",
     description:
-      "Three case files. Source-first. Open to evidence and correction.",
+      "Three documented issues. Source-first. Open to evidence and correction.",
     images: [
       {
         url: "/og.png",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nozzlegate — the open consumer record",
     description:
-      "Three case files. Source-first. Open to evidence and correction.",
+      "Three documented issues. Source-first. Open to evidence and correction.",
     images: ["/og.png"],
   },
   robots: {

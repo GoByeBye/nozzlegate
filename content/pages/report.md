@@ -16,14 +16,14 @@ notice:
 whyReport:
   eyebrow: Why this matters
   title: Why report to Konsumentverket?
-  text: Konsumentverket uses reports to monitor the market, and a report can become the basis for supervision of a company. Clear, well-documented reports help the authority see whether the same problem may be affecting more than one buyer.
-  note: A report does not guarantee an investigation, a fix or a refund. It gives the authority a documented account it can use now or later.
+  text: Reports help Konsumentverket spot repeated problems and decide where to investigate.
+  note: They do not guarantee an investigation or recover your refund.
   action: How supervision works
   href: https://www.konsumentverket.se/marknadsratt-foretag/konsumentverkets-tillsyn/
 sharedRoute:
   eyebrow: Checked against the live form
-  title: Start with the same two choices.
-  intro: All three issues belong under marketing and contract terms. After these two clicks, open the guide for the issue you are reporting.
+  title: "Steps 1–2: choose the report category."
+  intro: These are two clicks in the same form, not either/or choices. Complete step 1, then step 2. After that, open the guide for the issue you are reporting.
   verified: Form checked 29 July 2026. If Konsumentverket changes a label, follow the closest current wording.
   items:
     - number: "1"
@@ -38,12 +38,12 @@ sharedRoute:
       textTranslation: Contracts, pricing, sales methods and marketing
 guideSection:
   eyebrow: One guide per issue
-  title: Then follow the matching route.
-  intro: The field names below match the live form. Open one guide, work from top to bottom and only enter facts you can support.
+  title: "Steps 3–7: choose what you are reporting."
+  intro: Open one issue and continue from step 3. The labels match the live form; only enter facts you can support.
 issueGuides:
   - caseSlug: nozzlegate
-    title: Hardened nozzle claims
-    summary: Use this when the INDX nozzle was marketed or labelled as hardened.
+    title: Bondtech sold the nozzle as hardened
+    summary: Choose this if your INDX nozzle, product page or packaging said “hardened”.
     fields:
       - label: Vilken vara, tjänst eller aktivitet?
         value: Bondtech INDX-munstycken marknadsförda som hardened
@@ -62,8 +62,8 @@ issueGuides:
       - Photograph of the box or product label, if it used the claim.
       - Bondtech’s official update or a relevant reply from the company.
   - caseSlug: payment-surcharges
-    title: Card or PayPal fees
-    summary: Use this when Bondtech’s checkout added a payment-method fee.
+    title: Bondtech added a card or PayPal fee
+    summary: Choose this if the checkout or completed order included a payment-method fee.
     fields:
       - label: Vilken vara, tjänst eller aktivitet?
         value: Kort- eller PayPal-avgift i Bondtechs webbshop
@@ -82,8 +82,8 @@ issueGuides:
       - Payment receipt or statement with card and account numbers redacted.
       - Any response from Bondtech about the fee.
   - caseSlug: warranty-terms
-    title: Warranty and complaint terms
-    summary: Use this when the 90-day warranty wording obscured or was used against statutory rights.
+    title: Bondtech’s terms say the warranty lasts 90 days
+    summary: Choose this if that wording affected how you understood or made a complaint.
     fields:
       - label: Vilken vara, tjänst eller aktivitet?
         value: Bondtechs garanti- och reklamationsvillkor
@@ -109,7 +109,7 @@ finish:
 remedy:
   eyebrow: Want a refund?
   title: Contact the seller as well.
-  text: Complain to the seller in writing and state the remedy you want. If the seller rejects the claim or does not respond within a reasonable time, ARN may be able to review the dispute. ARN requires you to complain to the company first and currently charges SEK 150.
+  text: Ask the seller in writing for the remedy you want. If it refuses or does not reply, ARN may review the dispute. You must complain to the company first, and ARN currently charges SEK 150.
   links:
     - label: How to complain about goods
       href: https://www.konsumentverket.se/konsumentratt-process/reklamera-vara/

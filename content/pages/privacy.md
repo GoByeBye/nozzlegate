@@ -73,7 +73,7 @@ sections:
     title: How long data is kept
     paragraphs:
       - The project does not retain Cloudflare Workers invocation logs or traces because both are disabled in the deployment configuration. Cloudflare may still retain separate operational, aggregate and security data according to its own policies.
-      - Contact messages that do not become part of a case file are deleted when the conversation and evidence review are finished and they are no longer needed. Unredacted attachments that are not needed are deleted after review.
+      - Contact messages that do not become part of a published issue record are deleted when the conversation and evidence review are finished and they are no longer needed. Unredacted attachments that are not needed are deleted after review.
       - Evidence needed to support or correct a published claim may be retained while the related record remains published or while a legal issue requires it. Public copies are redacted where personal details are not necessary.
     links:
       - label: Cloudflare Workers metrics

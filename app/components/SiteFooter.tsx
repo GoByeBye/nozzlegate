@@ -11,7 +11,7 @@ export function SiteFooter() {
       </div>
 
       <nav className="global-footer__links" aria-label="Footer">
-        <Link href="/#case-files">Case files</Link>
+        <Link href="/#case-files">Issues</Link>
         <Link href="/report">Reporting guide</Link>
         <Link href="/contribute#contact">Contact</Link>
         <Link href="/contribute#ai-disclosure">AI disclosure</Link>

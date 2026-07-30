@@ -61,6 +61,8 @@ test("server-renders the source-first home page", async () => {
   );
   assert.match(html, /Open the reporting guide/i);
   assert.match(html, /Contribute evidence/i);
+  assert.match(html, /Details &amp; evidence/i);
+  assert.match(html, />Issues<\/a>/i);
   assert.doesNotMatch(
     html,
     /The units shipped with the INDX are not truly hardened|Every claim should be verifiable|Read the contribution guide|This is a living record/i,
@@ -78,7 +80,7 @@ test("server-renders the source-first home page", async () => {
 test("server-renders a cited case file", async () => {
   const html = await htmlFor("/cases/nozzlegate");
 
-  assert.match(html, /Case 01 — Nozzlegate \| Nozzlegate/i);
+  assert.match(html, /Nozzlegate issue \| Nozzlegate/i);
   assert.match(html, /30–32 HRC/i);
   assert.match(html, /<h1>What happened<\/h1>/i);
   assert.doesNotMatch(html, /class="article-hero"/i);
@@ -140,7 +142,11 @@ test("keeps long-form case pages readable in dark mode", async () => {
   );
   assert.doesNotMatch(css, /\.article-layout\s*{[^}]*--background:/is);
   assert.doesNotMatch(css, /--background:\s*#f6f5fa/i);
-  assert.match(css, /\.prose p\s*{[^}]*max-width:\s*68ch/is);
+  assert.match(css, /:root\s*{[^}]*--copy-measure:\s*68ch/is);
+  assert.match(
+    css,
+    /\.prose p\s*{[^}]*max-width:\s*var\(--copy-measure\)/is,
+  );
   assert.match(
     css,
     /\.case-summary\s*{[^}]*max-width:\s*none[^}]*margin:\s*0 0 68px/is,
@@ -154,12 +160,48 @@ test("keeps long-form case pages readable in dark mode", async () => {
   );
   assert.match(
     css,
-    /\.case-card \.status\s*{[^}]*color:\s*var\(--foreground-soft\)/is,
+    /\.status--neutral\s*{[^}]*color:\s*var\(--foreground-soft\)/is,
   );
   assert.doesNotMatch(css, /#ffd700|rgb\(255 215 0/i);
   assert.doesNotMatch(
     css,
     /@media \(max-width: 980px\)[\s\S]{0,400}\.site-nav\s*{\s*display:\s*none/is,
+  );
+});
+
+test("keeps active component styles canonical", async () => {
+  const css = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+  const firstMediaQuery = css.indexOf("@media");
+  const baseCss =
+    firstMediaQuery === -1 ? css : css.slice(0, firstMediaQuery);
+
+  for (const selector of [
+    "\\.page-hero",
+    "\\.case-card__footer",
+    "\\.evidence-levels article",
+  ]) {
+    assert.equal(
+      (baseCss.match(new RegExp(`^${selector}\\s*\\{`, "gm")) ?? []).length,
+      1,
+      `${selector} should have one canonical base rule`,
+    );
+  }
+
+  assert.doesNotMatch(css, /Less noise, more hierarchy/i);
+  assert.doesNotMatch(
+    baseCss,
+    /\.evidence-levels article\s*{[^}]*min-height/is,
+  );
+  assert.doesNotMatch(
+    baseCss,
+    /\.wordmark > \.wordmark__slash\s*{[^}]*!important/is,
+  );
+  assert.doesNotMatch(
+    baseCss,
+    /\.issue-guide__steps \.issue-guide__answer\s*{[^}]*!important/is,
   );
 });
 
@@ -491,7 +533,8 @@ test("server-renders the reporting guide and official form link", async () => {
     html,
     /https:\/\/anmalan\.konsumentverket\.se\/flow\/anmalning-start/i,
   );
-  assert.match(html, /Start with the same two choices/i);
+  assert.match(html, /Steps 1–2: choose the report category/i);
+  assert.match(html, /not either\/or choices/i);
   assert.match(
     html,
     /Gör ett val inom marknadsföring och avtalsvillkor/i,
@@ -506,16 +549,33 @@ test("server-renders the reporting guide and official form link", async () => {
     html,
     /Contracts, pricing, sales methods and marketing/i,
   );
-  assert.match(html, /Then follow the matching route/i);
+  assert.match(html, /Steps 3–7: choose what you are reporting/i);
+  assert.doesNotMatch(html, />CASE 0[1-3]</i);
+  assert.match(html, /Bondtech sold the nozzle as hardened/i);
+  assert.match(html, /Bondtech added a card or PayPal fee/i);
+  assert.match(html, /Bondtech’s terms say the warranty lasts 90 days/i);
+  for (const step of ["1", "2", "3", "4", "5", "6", "7"]) {
+    assert.match(
+      html,
+      new RegExp(`class="(?:route-map|issue-guide)__number">${step}<`, "i"),
+    );
+  }
+  assert.match(
+    html,
+    /class="button button--solid"[^>]*href="https:\/\/anmalan\.konsumentverket\.se\/flow\/anmalning-start"/i,
+  );
   assert.match(html, /Why report to Konsumentverket\?/i);
-  assert.match(html, /basis for supervision of a company/i);
+  assert.match(html, /class="report-followups"/i);
+  assert.doesNotMatch(html, /class="why-report-section"/i);
+  assert.doesNotMatch(html, /class="remedy-section"/i);
+  assert.match(html, /spot repeated problems and decide where to investigate/i);
   assert.match(
     html,
     /https:\/\/www\.konsumentverket\.se\/marknadsratt-foretag\/konsumentverkets-tillsyn\//i,
   );
   assert.match(
     html,
-    /does not guarantee an investigation, a fix or a refund/i,
+    /do not guarantee an investigation or recover your refund/i,
   );
   assert.equal(
     (html.match(/<details class="issue-guide"/gi) ?? []).length,
@@ -542,5 +602,6 @@ test("opens the reporting guide selected by the URL fragment", async () => {
   assert.match(opener, /window\.location\.hash\.slice\(1\)/i);
   assert.match(opener, /target instanceof HTMLDetailsElement/i);
   assert.match(opener, /guide\.open = guide === target/i);
+  assert.match(opener, /addEventListener\("toggle", keepOneGuideOpen\)/i);
   assert.match(opener, /addEventListener\("hashchange", openMatchingGuide\)/i);
 });

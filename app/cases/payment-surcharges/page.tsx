@@ -5,7 +5,7 @@ import { getCaseFile } from "../../../content/cases";
 const caseFile = getCaseFile("payment-surcharges");
 
 export const metadata: Metadata = {
-  title: "Case 02 — Payment surcharges",
+  title: "Payment surcharge issue",
   description:
     "Documented Bondtech card-fee charges, applicable consumer rules, and steps for requesting a fee refund or reporting the practice.",
 };

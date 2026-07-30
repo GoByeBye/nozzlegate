@@ -30,7 +30,7 @@ export default function ReportPage() {
           <h1>{hero.title}</h1>
           <p>{hero.intro}</p>
           <a
-            className="button button--dark"
+            className="button button--solid"
             href={hero.href}
             target="_blank"
             rel="noreferrer"
@@ -52,28 +52,6 @@ export default function ReportPage() {
       </header>
 
       <section
-        className="why-report-section"
-        aria-labelledby="why-report-title"
-      >
-        <div>
-          <p className="eyebrow">{whyReport.eyebrow}</p>
-          <h2 id="why-report-title">{whyReport.title}</h2>
-        </div>
-        <div className="why-report-section__body">
-          <p>{whyReport.text}</p>
-          <p className="why-report-section__note">{whyReport.note}</p>
-          <a
-            className="text-link"
-            href={whyReport.href}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {whyReport.action} <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </section>
-
-      <section
         className="route-map route-map--compact"
         aria-labelledby="route-map-title"
       >
@@ -90,15 +68,20 @@ export default function ReportPage() {
         <ol>
           {sharedRoute.items.map((item) => (
             <li key={item.number}>
-              <span>{item.number}</span>
-              <strong>{item.title}</strong>
-              <small className="route-map__translation">
-                English: {item.titleTranslation}
-              </small>
-              <p className="route-map__choice">
-                <span>{item.text}</span>
-                <small>English: {item.textTranslation}</small>
-              </p>
+              <div className="route-map__step">
+                <span className="route-map__number">{item.number}</span>
+                <small>Step {item.number} of {sharedRoute.items.length}</small>
+              </div>
+              <div className="route-map__instruction">
+                <small>Form prompt</small>
+                <strong>{item.title}</strong>
+                <span>{item.titleTranslation}</span>
+              </div>
+              <div className="route-map__selection">
+                <small>Select</small>
+                <strong>{item.text}</strong>
+                <span>{item.textTranslation}</span>
+              </div>
             </li>
           ))}
         </ol>
@@ -130,9 +113,6 @@ export default function ReportPage() {
                 key={guide.caseSlug}
               >
                 <summary className="issue-guide__summary">
-                  <span className="issue-guide__case">
-                    CASE {caseFile.number}
-                  </span>
                   <span className="issue-guide__title">
                     <strong>{guide.title}</strong>
                     <small>{guide.summary}</small>
@@ -147,9 +127,9 @@ export default function ReportPage() {
                 </summary>
 
                 <div className="issue-guide__body">
-                  <ol className="issue-guide__steps">
+                  <ol className="issue-guide__steps" start={3}>
                     <li>
-                      <span className="issue-guide__number">1</span>
+                      <span className="issue-guide__number">3</span>
                       <div>
                         <p className="issue-guide__form-label">
                           Vad vill du anmäla?
@@ -167,7 +147,7 @@ export default function ReportPage() {
                     </li>
 
                     <li>
-                      <span className="issue-guide__number">2</span>
+                      <span className="issue-guide__number">4</span>
                       <div>
                         <p className="issue-guide__form-label">
                           Vad har hänt?
@@ -210,7 +190,7 @@ export default function ReportPage() {
                     </li>
 
                     <li>
-                      <span className="issue-guide__number">3</span>
+                      <span className="issue-guide__number">5</span>
                       <div>
                         <p className="issue-guide__form-label">Bifoga filer</p>
                         <h3>Attach the proof you have.</h3>
@@ -224,7 +204,7 @@ export default function ReportPage() {
                     </li>
 
                     <li>
-                      <span className="issue-guide__number">4</span>
+                      <span className="issue-guide__number">6</span>
                       <div>
                         <p className="issue-guide__form-label">
                           Vem är drabbad?
@@ -236,7 +216,7 @@ export default function ReportPage() {
                     </li>
 
                     <li>
-                      <span className="issue-guide__number">5</span>
+                      <span className="issue-guide__number">7</span>
                       <div>
                         <p className="issue-guide__form-label">
                           Sammanfattning
@@ -246,6 +226,17 @@ export default function ReportPage() {
                       </div>
                     </li>
                   </ol>
+                  <div className="issue-guide__finish">
+                    <a
+                      className="button button--solid"
+                      href={hero.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open the official form{" "}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
                 </div>
               </details>
             );
@@ -253,27 +244,37 @@ export default function ReportPage() {
         </div>
       </section>
 
-      <section className="remedy-section">
-        <div>
-          <p className="eyebrow">{remedy.eyebrow}</p>
-          <h2>{remedy.title}</h2>
-        </div>
-        <div className="remedy-section__body">
-          <p>{remedy.text}</p>
-          <div className="link-pair">
-            {remedy.links.map((link) => (
+      <aside className="report-followups" aria-label="What happens next">
+        <p>
+          <strong>{whyReport.title}</strong>
+          {whyReport.text} {whyReport.note}{" "}
+          <a
+            className="text-link"
+            href={whyReport.href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {whyReport.action} <span aria-hidden="true">↗</span>
+          </a>
+        </p>
+        <p>
+          <strong>{remedy.title}</strong>
+          {remedy.text}{" "}
+          {remedy.links.map((link, index) => (
+            <span key={link.href}>
+              {index > 0 ? " · " : ""}
               <a
+                className="text-link"
                 href={link.href}
-                key={link.href}
                 target="_blank"
                 rel="noreferrer"
               >
                 {link.label} <span aria-hidden="true">↗</span>
               </a>
-            ))}
-          </div>
-        </div>
-      </section>
+            </span>
+          ))}
+        </p>
+      </aside>
     </main>
   );
 }
