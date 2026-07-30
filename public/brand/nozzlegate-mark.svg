@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Nozzlegate nozzle mark</title>
+  <rect width="512" height="512" fill="#0b0b0d"/>
+  <g fill="#f7f7f8">
+    <path d="M156 112h200l12 12v44L294 242H206l-50-50z"/>
+    <path d="M170 236h172v62l-34 78H204l-34-78z"/>
+    <path d="M218 390h76v32l-28 42h-20l-28-42z"/>
+  </g>
+  <path d="M116 396 396 116" stroke="#0b0b0d" stroke-width="54"/>
+  <path d="M116 396 396 116" stroke="#a79fff" stroke-width="28"/>
+</svg>

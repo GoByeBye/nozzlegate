@@ -13,6 +13,11 @@ must still trace back to an original record that a person can check.
 The social preview image at `public/og.png` was AI-generated and carries Content
 Credentials identifying it as AI-generated media.
 
+The Nozzlegate nozzle mark and the favicon, Apple touch icon, and Discord server
+icon derived from it were designed with AI assistance and redrawn as flat,
+project-owned artwork. These icon files do not claim embedded Content
+Credentials.
+
 ## Licensing
 
 The site code is licensed under the [MIT License](LICENSE). Original editorial

@@ -40,6 +40,18 @@ test("server-renders the source-first home page", async () => {
     html,
     /<title>Nozzlegate — the open consumer record \| Nozzlegate<\/title>/i,
   );
+  assert.match(
+    html,
+    /href="(?:https:\/\/nozzlegate\.com)?\/icon\.svg/i,
+  );
+  assert.match(
+    html,
+    /href="(?:https:\/\/nozzlegate\.com)?\/favicon\.ico/i,
+  );
+  assert.match(
+    html,
+    /href="(?:https:\/\/nozzlegate\.com)?\/apple-icon\.png/i,
+  );
   assert.match(html, /<h1>Start with the facts\.<\/h1>/i);
   assert.match(html, /href="\/cases\/nozzlegate"/i);
   assert.match(html, /href="\/cases\/payment-surcharges"/i);
@@ -75,6 +87,49 @@ test("server-renders the source-first home page", async () => {
     html,
     /Independent record · Bondtech INDX|Bondtech, documented|Current dossier status|codex-preview|Your site is taking shape|react-loading-skeleton/i,
   );
+});
+
+test("ships favicon and Discord icon assets", async () => {
+  const svg = await readFile(
+    new URL("../app/icon.svg", import.meta.url),
+    "utf8",
+  );
+  assert.match(svg, /viewBox="0 0 512 512"/i);
+  assert.match(svg, /#0b0b0d/i);
+  assert.match(svg, /#f7f7f8/i);
+  assert.match(svg, /#a79fff/i);
+
+  const favicon = await readFile(
+    new URL("../app/favicon.ico", import.meta.url),
+  );
+  assert.equal(favicon.readUInt16LE(0), 0, "ICO reserved field");
+  assert.equal(favicon.readUInt16LE(2), 1, "ICO image type");
+  assert.equal(favicon.readUInt16LE(4), 3, "ICO image count");
+
+  const discordIcon = await readFile(
+    new URL("../public/brand/discord-server-icon.png", import.meta.url),
+  );
+  assert.equal(
+    discordIcon.subarray(1, 4).toString("ascii"),
+    "PNG",
+    "Discord icon should be a PNG",
+  );
+  assert.equal(discordIcon.readUInt32BE(16), 512);
+  assert.equal(discordIcon.readUInt32BE(20), 512);
+
+  const appleIcon = await readFile(
+    new URL("../app/apple-icon.png", import.meta.url),
+  );
+  assert.equal(appleIcon.readUInt32BE(16), 180);
+  assert.equal(appleIcon.readUInt32BE(20), 180);
+
+  const builtDiscordIcon = await readFile(
+    new URL(
+      "../dist/client/brand/discord-server-icon.png",
+      import.meta.url,
+    ),
+  );
+  assert.deepEqual(builtDiscordIcon, discordIcon);
 });
 
 test("server-renders a cited case file", async () => {
@@ -281,8 +336,9 @@ test("links contributors to the GitHub project", async () => {
   assert.match(html, /mailto:contact\.nozzlegate@f22\.no/i);
   assert.match(html, /website itself does not submit or store messages/i);
   assert.match(html, /href="\/privacy"/i);
+  assert.match(html, /Corrections are welcome\./i);
   assert.match(html, /id="ai-disclosure"/i);
-  assert.match(html, /Humans make the call/i);
+  assert.match(html, /AI disclosure\./i);
   assert.match(
     html,
     /AI output is never treated as a source or independent verification/i,
