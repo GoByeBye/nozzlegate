@@ -447,9 +447,32 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
   assert.match(html, /Your Europe \/ European Union/i);
   assert.match(
     html,
-    /exact coverage still depends on the card and account/i,
+    /EU\/EEA consumer debit and credit cards cannot carry a surcharge/i,
+  );
+  assert.match(html, /Article 62\(4\) of Directive \(EU\) 2015\/2366/i);
+  assert.match(
+    html,
+    /shall not request charges for the use of payment instruments/i,
+  );
+  assert.match(
+    html,
+    /En betalningsmottagare får inte ta ut någon avgift av betalaren/i,
+  );
+  assert.match(
+    html,
+    /commercial or corporate cards and some three-party card schemes/i,
+  );
+  assert.match(
+    html,
+    /the payee pays the charges levied by his payment service provider/i,
+  );
+  assert.doesNotMatch(
+    html,
+    /The Sweden images establish the checkout state/i,
   );
   assert.match(html, /id="remedy"/i);
+  assert.match(html, /Refund path/i);
+  assert.doesNotMatch(html, /Recovery path/i);
   assert.match(html, /Ask Bondtech to refund the card fee/i);
   assert.match(html, /This is a fee-only refund request/i);
   assert.match(html, /not a citizenship test/i);
@@ -463,8 +486,14 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
   );
   assert.match(
     html,
-    /https:\/\/eur-lex\.europa\.eu\/legal-content\/EN\/TXT\/\?uri=celex:02015L2366-20151223/i,
+    /https:\/\/eur-lex\.europa\.eu\/eli\/dir\/2015\/2366\/oj\/eng/i,
   );
+  assert.match(
+    html,
+    /https:\/\/eur-lex\.europa\.eu\/eli\/reg\/2015\/751\/oj\/eng/i,
+  );
+  assert.match(html, /https:\/\/www\.efta\.int\/eea-lex\/32015l2366/i);
+  assert.match(html, /https:\/\/www\.efta\.int\/eea-lex\/32015r0751/i);
   assert.match(html, /Fourteen calendar days is a reasonable practical deadline/i);
   assert.match(html, /not a special statutory refund period/i);
   assert.match(html, /href="mailto:order@bondtech\.se"/i);
@@ -604,4 +633,25 @@ test("opens the reporting guide selected by the URL fragment", async () => {
   assert.match(opener, /guide\.open = guide === target/i);
   assert.match(opener, /addEventListener\("toggle", keepOneGuideOpen\)/i);
   assert.match(opener, /addEventListener\("hashchange", openMatchingGuide\)/i);
+});
+
+test("opens a case disclosure selected by a same-page link or URL fragment", async () => {
+  const opener = await readFile(
+    new URL("../app/components/HashDisclosureOpener.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(opener, /window\.location\.hash\.slice\(1\)/i);
+  assert.match(opener, /target instanceof HTMLDetailsElement/i);
+  assert.match(opener, /classList\.contains\("case-disclosure"\)/i);
+  assert.match(opener, /target\.open = true/i);
+  assert.match(opener, /closest<HTMLAnchorElement>\('a\[href\^="#"\]'\)/i);
+  assert.match(
+    opener,
+    /document\.addEventListener\("click", openLinkedDisclosure\)/i,
+  );
+  assert.match(
+    opener,
+    /window\.addEventListener\("hashchange", openMatchingDisclosure\)/i,
+  );
 });

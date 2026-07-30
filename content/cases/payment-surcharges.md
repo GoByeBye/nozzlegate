@@ -137,23 +137,24 @@ timeline:
     text: The reviewed payment terms explain the available methods but do not disclose a card surcharge.
     sourceIds:
       - fee-bondtech-terms
-legalTitle: Clear rule for covered cards; exact coverage still depends on the card and account
+legalTitle: EU/EEA consumer debit and credit cards cannot carry a surcharge
 legalAnalysis:
-  - text: "For a covered consumer debit or credit card payment in the EU/EEA, the official rule generally prohibits a fee added because the card was used. This protection is not defined by the buyer’s citizenship. Its scope can depend on the payment, including where the payment-service providers are located, the currency and the card type. If the payment falls outside EU/EEA rules—or you are unsure—check the consumer and payment rules where you live and where the payment was made."
+  - text: "If you are buying as a consumer in the EU/EEA and paying with an ordinary consumer debit or credit card, the seller must not add a fee just because you used that card. This applies in shops and online. For an EEA card payment, coverage normally depends on both the payer’s and the seller’s payment-service providers being located in the EEA; it is not a citizenship test."
     sourceIds:
       - fee-eu-guidance
-      - fee-eu-consumer-guidance
       - fee-psd2-scope
-      - fee-kov
-      - fee-payment-law
-  - text: The Sweden images establish the checkout state and a card-labelled fee. Private buyer confirmations report that completed orders retained the fee across Visa, Mastercard and American Express; those receipts are not public. That resolves which card schemes buyers encountered as a factual matter, but it does not make their legal treatment identical. Business or corporate cards, PayPal fees, foreign-exchange costs and customs charges can raise different legal questions.
+      - fee-eea-psd2
+  - text: "Article 62(4) of Directive (EU) 2015/2366 (PSD2) says the payee “shall not request charges for the use of payment instruments” whose interchange fees are regulated by Chapter II of Regulation (EU) 2015/751. Article 62(2) also says “the payee pays the charges levied by his payment service provider.” Both laws are in force across the EEA."
     sourceIds:
-      - fee-sweden-card
-      - fee-sweden-paypal
-      - fee-eu-checkout
-      - fee-usd-order-summary
-      - fee-eu-guidance
-      - fee-eu-consumer-guidance
+      - fee-psd2-scope
+      - fee-card-regulation
+      - fee-eea-psd2
+      - fee-eea-card-regulation
+  - text: "Regulation (EU) 2015/751 covers ordinary consumer debit and credit card transactions. It defines a consumer as someone acting outside their trade, business or profession. Its Chapter II excludes commercial or corporate cards and some three-party card schemes, so those require a separate check. PayPal fees, currency-conversion charges and customs charges are also different legal questions."
+    sourceIds:
+      - fee-card-regulation
+  - text: "Because Bondtech is a Swedish seller, Chapter 5, Section 1 of Sweden’s Payment Services Act also applies. It says: “En betalningsmottagare får inte ta ut någon avgift av betalaren vid användning av ett betalningsinstrument.” In plain English: a payee may not charge the payer a fee for using a payment instrument."
+    sourceIds:
       - fee-payment-law
 remedy:
   title: Ask Bondtech to refund the card fee
@@ -310,11 +311,29 @@ sources:
     kind: Authority
     checked: 29 Jul 2026
   - id: fee-psd2-scope
-    title: Directive (EU) 2015/2366 — payment-services scope and card charges
+    title: Directive (EU) 2015/2366 — Articles 2 and 62
     publisher: EUR-Lex / European Union
-    href: https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex:02015L2366-20151223
+    href: https://eur-lex.europa.eu/eli/dir/2015/2366/oj/eng
     kind: Law
-    checked: 29 Jul 2026
+    checked: 30 Jul 2026
+  - id: fee-card-regulation
+    title: Regulation (EU) 2015/751 — scope, definitions and exclusions
+    publisher: EUR-Lex / European Union
+    href: https://eur-lex.europa.eu/eli/reg/2015/751/oj/eng
+    kind: Law
+    checked: 30 Jul 2026
+  - id: fee-eea-psd2
+    title: Directive (EU) 2015/2366 — EEA status
+    publisher: European Free Trade Association
+    href: https://www.efta.int/eea-lex/32015l2366
+    kind: Law
+    checked: 30 Jul 2026
+  - id: fee-eea-card-regulation
+    title: Regulation (EU) 2015/751 — EEA status
+    publisher: European Free Trade Association
+    href: https://www.efta.int/eea-lex/32015r0751
+    kind: Law
+    checked: 30 Jul 2026
   - id: fee-kov
     title: Får butiken ta en avgift när du betalar med kort?
     publisher: Konsumentverket

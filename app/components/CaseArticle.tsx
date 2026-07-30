@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CopyButton } from "./CopyButton";
+import { HashDisclosureOpener } from "./HashDisclosureOpener";
 import type {
   CaseActionLink,
   CaseFile,
@@ -195,6 +196,7 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
 
   return (
     <main id="main-content">
+      <HashDisclosureOpener />
       <article>
         <div className="article-layout">
           <section className="case-summary" id="short-version">
@@ -331,7 +333,7 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             {caseFile.remedy ? (
               <CaseDisclosure
                 id="remedy"
-                label="Recovery path"
+                label="Refund path"
                 title={caseFile.remedy.title}
                 count={`${caseFile.remedy.steps.length} steps`}
               >
