@@ -313,7 +313,7 @@ test("server-renders the privacy notice", async () => {
   assert.doesNotMatch(html, /OpenAI|ChatGPT Sites/i);
 });
 
-test("disables persisted Cloudflare Worker logs and traces", async () => {
+test("pins Cloudflare runtime behavior and disables persisted logs and traces", async () => {
   const config = JSON.parse(
     await readFile(
       new URL("../dist/server/wrangler.json", import.meta.url),
@@ -321,6 +321,7 @@ test("disables persisted Cloudflare Worker logs and traces", async () => {
     ),
   );
 
+  assert.equal(config.compatibility_date, "2026-05-15");
   assert.equal(config.observability?.enabled, false);
   assert.equal(config.observability?.logs?.enabled, false);
   assert.equal(config.observability?.logs?.invocation_logs, false);
