@@ -21,7 +21,7 @@ export function SiteFooter() {
       <div className="global-footer__meta">
         <p>Open-source consumer documentation · Updated 29 July 2026</p>
         <p>
-          made with spite &amp; anger by{" "}
+          made with a little spite by{" "}
           <a href="https://daddie.dev" target="_blank" rel="noreferrer">
             daddie.dev
           </a>

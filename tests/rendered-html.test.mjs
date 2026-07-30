@@ -69,7 +69,7 @@ test("server-renders the source-first home page", async () => {
   );
   assert.match(
     html,
-    /made with spite &amp; anger by[\s\S]*href="https:\/\/daddie\.dev"/i,
+    /made with a little spite by[\s\S]*href="https:\/\/daddie\.dev"/i,
   );
   assert.doesNotMatch(
     html,
