@@ -175,10 +175,100 @@ test("server-renders a cited case file", async () => {
     /href="\/evidence\/bondtech-discord-[^"]+\.md"/i,
   );
   assert.match(html, /Legal context/i);
-  assert.match(html, /Report this to Konsumentverket\./i);
+  assert.match(html, /id="remedy"/i);
   assert.match(
     html,
-    /Konsumentverket is Sweden’s consumer protection authority\./i,
+    /class="case-remedy__routes case-remedy__routes--two-column"/i,
+  );
+  assert.match(html, /Refund paths/i);
+  assert.match(html, /2 paths/i);
+  assert.match(html, /Ask the seller to complete the return and refund/i);
+  assert.match(html, /Identify the seller responsible for your order/i);
+  assert.match(html, /Two physical return paths/i);
+  assert.match(html, /Product not assembled or installed/i);
+  assert.match(html, /Product already assembled or installed/i);
+  assert.match(html, /PATH(?:\s|<!-- -->)*1/i);
+  assert.match(html, /PATH(?:\s|<!-- -->)*2/i);
+  assert.match(html, /prepaid tracked return or collection method/i);
+  assert.match(
+    html,
+    /A seller-paid return after termination does not automatically guarantee payment for your time/i,
+  );
+  assert.match(
+    html,
+    /cannot reasonably be expected to keep the rest of the purchase/i,
+  );
+  assert.match(html, /notice within two months after you noticed it is always timely/i);
+  assert.match(
+    html,
+    /Neither provision automatically requires seller-performed removal or payment for my time/i,
+  );
+  assert.match(
+    html,
+    /consumer returns the goods “at the seller(?:'|&#x27;)s expense”/i,
+  );
+  assert.match(html, /ska det ske på näringsidkarens bekostnad/i);
+  assert.match(
+    html,
+    /Swedish damages rules can cover actual expenses, income loss and other loss caused by the defect/i,
+  );
+  assert.match(html, /Option 1: Boxed return/i);
+  assert.match(html, /Option 2: Installed return/i);
+  assert.match(html, /Option 3: Replacement or price reduction/i);
+  assert.match(html, /EMAIL DRAFT(?:\s|<!-- -->)*1/i);
+  assert.match(html, /EMAIL DRAFT(?:\s|<!-- -->)*2/i);
+  assert.match(html, /EMAIL DRAFT(?:\s|<!-- -->)*3/i);
+  assert.match(html, /The INDX has not been assembled or installed/i);
+  assert.match(html, /A shipping label is not a disassembly service/i);
+  assert.match(html, /I do not want to dismantle it myself because the reversal is cumbersome and carries risk/i);
+  assert.match(html, /Get complete terms before accepting a return arrangement/i);
+  assert.match(html, /For a voluntary return, do not dispatch until you accept suitable written terms/i);
+  assert.match(html, /For a voluntary return, do not dismantle until you accept a safe, suitable written plan/i);
+  assert.match(html, /Before I confirm any arrangement or dispatch the product/i);
+  assert.match(html, /I do not accept a return arrangement or authorize dismantling/i);
+  assert.match(html, /I will state in writing whether I accept it/i);
+  assert.match(html, /An alternative is not agreed unless I accept its full terms in writing/i);
+  assert.doesNotMatch(html, /I accept your offer to return the complete INDX/i);
+  assert.match(html, /Keeping the kit: request replacement or a price reduction/i);
+  assert.match(html, /This request does not accept a different or incomplete proposal and does not waive other rights or remedies/i);
+  assert.match(html, /I do not accept a different or incomplete proposal unless I confirm its full terms in writing/i);
+  assert.match(html, /A buyer outside the EU may still use Swedish remedies if Swedish law governs the purchase/i);
+  assert.match(html, /Citizenship alone does not determine whether Swedish law applies/i);
+  assert.match(html, /If I selected a price reduction, I rely on/i);
+  assert.match(html, /ARN only handles claims subject to Swedish legislation/i);
+  assert.match(html, /Bondtech AB is a Swedish company registered in Värnamo/i);
+  assert.match(html, /Bought directly from Bondtech AB\? Apply to ARN after a refusal or no answer/i);
+  assert.match(html, /Bondtech’s Swedish location does not by itself put a foreign reseller purchase under Swedish law or ARN/i);
+  assert.match(html, /U\.S\. cardholders: request a partial card dispute for the unresolved amount/i);
+  assert.match(html, /ask to dispute only \$\[AMOUNT\], not the full transaction/i);
+  assert.match(html, /Do not describe the purchase as unauthorized/i);
+  assert.match(html, /some network rules require a return or attempted return/i);
+  assert.match(html, /ask \[PAYMENT PROVIDER\] to open a partial dispute or chargeback for only/i);
+  assert.match(html, /I will not dispute the full transaction while keeping the product/i);
+  assert.equal((html.match(/Copy template/gi) ?? []).length, 3);
+  assert.match(html, /U\.S\. buyers can keep the factual refund-offer/i);
+  assert.match(html, /verify the rules where you live before sending/i);
+  assert.match(
+    html,
+    /https:\/\/eur-lex\.europa\.eu\/eli\/dir\/2019\/771\/oj\/eng/i,
+  );
+  assert.match(html, /https:\/\/www\.usa\.gov\/online-purchase-complaints/i);
+  assert.match(html, /https:\/\/www\.bondtech\.se\/shop\/imprint\//i);
+  assert.match(html, /https:\/\/www\.consumerfinance\.gov\/ask-cfpb\/how-can-i-get-a-refund-on-a-product-or-service-i-purchased-with-my-credit-card-en-1969\//i);
+  assert.match(html, /https:\/\/www\.visa\.com\/en-us\/support\/business\/dispute-resolution/i);
+  assert.match(html, /https:\/\/www\.mastercard\.us\/content\/dam\/public\/mastercardcom\/na\/global-site\/documents\/chargeback-guide\.pdf/i);
+  assert.match(html, /https:\/\/www\.konsumentverket\.se\/ekonomi\/kortreklamation\//i);
+  assert.match(html, /https:\/\/www\.konsumentverket\.se\/ekonomi\/invandningsratt\//i);
+  assert.match(html, /https:\/\/www\.arn\.se\/om-arn\/Languages\/english-what-is-arn\//i);
+  assert.match(html, /\[ORDER NUMBER\]/i);
+  assert.match(html, /\[YOUR NAME\]/i);
+  assert.match(
+    html,
+    /Ask for a refund or report the issue to Konsumentverket\./i,
+  );
+  assert.match(
+    html,
+    /The refund steps pursue your personal claim with the seller\./i,
   );
 });
 
@@ -403,17 +493,37 @@ test("keeps editorial case records in Markdown", async () => {
     assert.match(markdown, /^---\r?\nslug:/);
     assert.match(markdown, /\nsources:\r?\n/);
     assert.match(markdown, /\nreportTemplate:/);
-    if (slug === "payment-surcharges") {
+    if (slug === "payment-surcharges" || slug === "nozzlegate") {
       assert.match(markdown, /\nremedy:\r?\n/);
-      assert.match(markdown, /\n  emailTemplate: \|-/);
       const remedyBlock = markdown.match(
         /\nremedy:\r?\n[\s\S]*?(?=\nopenQuestions:)/,
       )?.[0];
-      assert.ok(remedyBlock, "payment remedy block should be present");
-      assert.doesNotMatch(
-        remedyBlock,
-        /Forbruker|\bamounts?\b|\[FEE AMOUNT\]|\[TOTAL CHARGED\]|\$|€|\b(?:USD|EUR|SEK|NOK)\b/i,
-      );
+      assert.ok(remedyBlock, `${slug} remedy block should be present`);
+      if (slug === "payment-surcharges") {
+        assert.match(remedyBlock, /\n  emailTemplate: \|-/);
+        assert.doesNotMatch(
+          remedyBlock,
+          /Forbruker|\bamounts?\b|\[FEE AMOUNT\]|\[TOTAL CHARGED\]|\$|€|\b(?:USD|EUR|SEK|NOK)\b/i,
+        );
+      } else {
+        assert.doesNotMatch(remedyBlock, /\u2014/);
+        assert.match(remedyBlock, /\n  paths:\r?\n/);
+        assert.match(remedyBlock, /\n  templates:\r?\n/);
+        assert.equal(
+          (remedyBlock.match(/\n      emailTemplate: \|-/g) ?? []).length,
+          3,
+        );
+        assert.equal(
+          (remedyBlock.match(/title: Product (?:not|already)/g) ?? []).length,
+          2,
+        );
+        assert.match(remedyBlock, /\[ORDER NUMBER\]/i);
+        assert.match(remedyBlock, /\[YOUR NAME\]/i);
+        assert.doesNotMatch(
+          remedyBlock,
+          /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i,
+        );
+      }
     }
   }
 
@@ -458,6 +568,7 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
   const html = await htmlFor("/cases/payment-surcharges");
 
   assert.match(html, /Buyers privately confirmed/i);
+  assert.doesNotMatch(html, /case-remedy__routes--two-column/i);
   assert.doesNotMatch(html, /class="article-hero"/i);
   assert.doesNotMatch(html, /aria-label="Case snapshot"/i);
   assert.match(html, /Sweden selected/i);

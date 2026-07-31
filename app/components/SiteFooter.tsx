@@ -19,7 +19,7 @@ export function SiteFooter() {
       </nav>
 
       <div className="global-footer__meta">
-        <p>Open-source consumer documentation · Updated 29 July 2026</p>
+        <p>Open-source consumer documentation · Updated 31 July 2026</p>
         <p>
           made with a little spite by{" "}
           <a href="https://daddie.dev" target="_blank" rel="noreferrer">

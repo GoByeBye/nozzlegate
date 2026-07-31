@@ -45,17 +45,27 @@ export type CaseRemedyItem = CitedText & {
   links?: CaseActionLink[];
 };
 
+export type CaseRemedyTemplate = {
+  title: string;
+  note: string;
+  emailTemplate: string;
+};
+
 export type CaseRemedy = {
   title: string;
   intro: CitedText;
   note: string;
+  pathsTitle?: string;
+  pathsIntro?: string;
+  paths?: CaseRemedyItem[];
   steps: CaseRemedyItem[];
   escalationTitle: string;
   escalationIntro: string;
   escalation: CaseRemedyItem[];
-  templateTitle: string;
-  templateNote: string;
-  emailTemplate: string;
+  templateTitle?: string;
+  templateNote?: string;
+  emailTemplate?: string;
+  templates?: CaseRemedyTemplate[];
 };
 
 export type CaseFile = {
@@ -305,13 +315,43 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
       "note",
       "escalationTitle",
       "escalationIntro",
-      "templateTitle",
-      "templateNote",
-      "emailTemplate",
     ]) {
       hasString(parsed.remedy, key, `${slug}.remedy`);
     }
+    if (parsed.remedy.templates !== undefined) {
+      invariant(
+        Array.isArray(parsed.remedy.templates) &&
+          parsed.remedy.templates.length > 0,
+        `${slug}.remedy.templates must be a non-empty array`,
+      );
+      parsed.remedy.templates.forEach((item, index) => {
+        const location = `${slug}.remedy.templates[${index}]`;
+        invariant(isRecord(item), `${location} must be an object`);
+        for (const key of ["title", "note", "emailTemplate"]) {
+          hasString(item, key, location);
+        }
+      });
+    } else {
+      for (const key of ["templateTitle", "templateNote", "emailTemplate"]) {
+        hasString(parsed.remedy, key, `${slug}.remedy`);
+      }
+    }
     assertCitedText(parsed.remedy.intro, `${slug}.remedy.intro`);
+    const hasRemedyPaths =
+      parsed.remedy.pathsTitle !== undefined ||
+      parsed.remedy.pathsIntro !== undefined ||
+      parsed.remedy.paths !== undefined;
+    if (hasRemedyPaths) {
+      hasString(parsed.remedy, "pathsTitle", `${slug}.remedy`);
+      hasString(parsed.remedy, "pathsIntro", `${slug}.remedy`);
+      invariant(
+        Array.isArray(parsed.remedy.paths) && parsed.remedy.paths.length > 0,
+        `${slug}.remedy.paths must be a non-empty array`,
+      );
+      parsed.remedy.paths.forEach((item, index) =>
+        assertRemedyItem(item, `${slug}.remedy.paths[${index}]`),
+      );
+    }
     invariant(
       Array.isArray(parsed.remedy.steps) && parsed.remedy.steps.length > 0,
       `${slug}.remedy.steps must be a non-empty array`,

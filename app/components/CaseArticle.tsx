@@ -193,6 +193,16 @@ function CaseDisclosure({
 export function CaseArticle({ caseFile }: CaseArticleProps) {
   const quickSummary = caseFile.summary.slice(0, 2);
   const additionalContext = caseFile.summary.slice(2);
+  const remedyPaths = caseFile.remedy?.paths ?? [];
+  const remedyTemplates = caseFile.remedy
+    ? (caseFile.remedy.templates ?? [
+        {
+          title: caseFile.remedy.templateTitle ?? "Email draft",
+          note: caseFile.remedy.templateNote ?? "",
+          emailTemplate: caseFile.remedy.emailTemplate ?? "",
+        },
+      ])
+    : [];
 
   return (
     <main id="main-content">
@@ -333,9 +343,13 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             {caseFile.remedy ? (
               <CaseDisclosure
                 id="remedy"
-                label="Refund path"
+                label={remedyPaths.length ? "Refund paths" : "Refund path"}
                 title={caseFile.remedy.title}
-                count={`${caseFile.remedy.steps.length} steps`}
+                count={
+                  remedyPaths.length
+                    ? `${remedyPaths.length} paths`
+                    : `${caseFile.remedy.steps.length} steps`
+                }
               >
                 <div className="case-remedy">
                   <div className="case-remedy__intro">
@@ -347,6 +361,44 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                       {caseFile.remedy.note}
                     </p>
                   </div>
+
+                  {remedyPaths.length ? (
+                    <section
+                      className="case-remedy__paths"
+                      aria-labelledby="refund-paths-title"
+                    >
+                      <div className="case-remedy__paths-heading">
+                        <p className="eyebrow">Choose the current condition</p>
+                        <h3 id="refund-paths-title">
+                          {caseFile.remedy.pathsTitle}
+                        </h3>
+                        <p>{caseFile.remedy.pathsIntro}</p>
+                      </div>
+                      <div className="case-remedy__path-grid">
+                        {remedyPaths.map((path, index) => (
+                          <article key={path.title}>
+                            <span>PATH {index + 1}</span>
+                            <h4>{path.title}</h4>
+                            <p>
+                              {path.text}
+                              <Citations
+                                ids={path.sourceIds}
+                                sources={caseFile.sources}
+                              />
+                            </p>
+                            {path.bullets?.length ? (
+                              <ul>
+                                {path.bullets.map((bullet) => (
+                                  <li key={bullet}>{bullet}</li>
+                                ))}
+                              </ul>
+                            ) : null}
+                            <RemedyLinks links={path.links} />
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+                  ) : null}
 
                   <ol className="case-remedy__steps">
                     {caseFile.remedy.steps.map((step, index) => (
@@ -382,7 +434,13 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                       <h3>{caseFile.remedy.escalationTitle}</h3>
                       <p>{caseFile.remedy.escalationIntro}</p>
                     </div>
-                    <div className="case-remedy__routes">
+                    <div
+                      className={
+                        caseFile.remedy.escalation.length === 4
+                          ? "case-remedy__routes case-remedy__routes--two-column"
+                          : "case-remedy__routes"
+                      }
+                    >
                       {caseFile.remedy.escalation.map((route) => (
                         <article key={route.title}>
                           <h4>{route.title}</h4>
@@ -399,30 +457,40 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                     </div>
                   </section>
 
-                  <details className="report-template case-remedy__template">
-                    <summary className="report-template__head">
-                      <div>
-                        <span>EMAIL DRAFT</span>
-                        <h4>{caseFile.remedy.templateTitle}</h4>
-                      </div>
-                      <span className="report-template__toggle">
-                        <span className="report-template__open-label">
-                          Open draft
-                        </span>
-                        <span className="report-template__close-label">
-                          Close draft
-                        </span>
-                        <b aria-hidden="true">+</b>
-                      </span>
-                    </summary>
-                    <div className="report-template__body">
-                      <div className="report-template__tools">
-                        <p>{caseFile.remedy.templateNote}</p>
-                        <CopyButton text={caseFile.remedy.emailTemplate} />
-                      </div>
-                      <pre>{caseFile.remedy.emailTemplate}</pre>
-                    </div>
-                  </details>
+                  <div className="case-remedy__templates">
+                    {remedyTemplates.map((template, index) => (
+                      <details
+                        className="report-template case-remedy__template"
+                        key={template.title}
+                      >
+                        <summary className="report-template__head">
+                          <div>
+                            <span>
+                              EMAIL DRAFT
+                              {remedyTemplates.length > 1 ? ` ${index + 1}` : ""}
+                            </span>
+                            <h4>{template.title}</h4>
+                          </div>
+                          <span className="report-template__toggle">
+                            <span className="report-template__open-label">
+                              Open draft
+                            </span>
+                            <span className="report-template__close-label">
+                              Close draft
+                            </span>
+                            <b aria-hidden="true">+</b>
+                          </span>
+                        </summary>
+                        <div className="report-template__body">
+                          <div className="report-template__tools">
+                            <p>{template.note}</p>
+                            <CopyButton text={template.emailTemplate} />
+                          </div>
+                          <pre>{template.emailTemplate}</pre>
+                        </div>
+                      </details>
+                    ))}
+                  </div>
                 </div>
               </CaseDisclosure>
             ) : null}
@@ -477,12 +545,12 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
             <p className="eyebrow">Bought an INDX?</p>
             <h2>
               {caseFile.remedy
-                ? "Ask for a refund—or report the card fee to Konsumentverket."
+                ? "Ask for a refund or report the issue to Konsumentverket."
                 : "Report this to Konsumentverket."}
             </h2>
             <p>
               {caseFile.remedy
-                ? "The refund steps are for recovering your fee. The reporting guide is for alerting Sweden’s consumer protection authority to the checkout practice."
+                ? "The refund steps pursue your personal claim with the seller. The reporting guide alerts Sweden’s consumer protection authority and does not recover the refund."
                 : "Konsumentverket is Sweden’s consumer protection authority. The guide shows what evidence to save and how to submit a report."}
             </p>
           </div>
