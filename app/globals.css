@@ -448,7 +448,7 @@ input {
 }
 
 .case-card__deck {
-  margin: 14px 0 0;
+  margin: 14px 0 16px;
   color: var(--foreground-soft);
   font-size: 1rem;
   line-height: 1.6;
@@ -2373,10 +2373,6 @@ code {
   }
 
   .case-card h3 {
-    margin-top: 20px;
-  }
-
-  .case-card__fact {
     margin-top: 20px;
   }
 

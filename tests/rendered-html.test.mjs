@@ -299,6 +299,7 @@ test("keeps long-form case pages readable in dark mode", async () => {
   assert.match(css, /\.case-grid\s*{[^}]*align-items:\s*stretch/is);
   assert.match(css, /\.case-card\s*{[^}]*height:\s*100%/is);
   assert.match(css, /\.case-card__link\s*{[^}]*height:\s*100%/is);
+  assert.match(css, /\.case-card__deck\s*{[^}]*margin:\s*14px 0 16px/is);
   assert.match(
     css,
     /\.case-card__link\s*{[^}]*min-height:\s*0[^}]*padding:\s*20px/is,
