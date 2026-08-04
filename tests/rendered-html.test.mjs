@@ -71,6 +71,17 @@ test("server-renders the source-first home page", async () => {
     html,
     /Bondtech’s warranty says 90 days\. Consumer rights can be a lot longer\./i,
   );
+  assert.match(html, /class="home-community"/i);
+  assert.match(html, /Join the Nozzlegate Discord\./i);
+  assert.match(html, /href="https:\/\/discord\.gg\/d4QBX7z4zp"/i);
+  assert.match(html, /src="\/brand\/discord-server-icon\.png"/i);
+  assert.doesNotMatch(html, /\/_vinext\/image\?/i);
+  assert.match(html, /Compare notes with other affected buyers/i);
+  assert.match(
+    html,
+    /I am another consumer helping out, not a lawyer\. This is not legal advice or legal representation/i,
+  );
+  assert.match(html, /Discord is an external service/i);
   assert.match(html, /Open the reporting guide/i);
   assert.match(html, /Contribute evidence/i);
   assert.match(html, /Details &amp; evidence/i);
