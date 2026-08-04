@@ -228,6 +228,14 @@ remedy:
       sourceIds:
         - ng-company-update
         - ng-consumer-sales-law
+  assist:
+    eyebrow: Free help
+    title: Stuck on the wording? Ask me in the Discord.
+    text: I run this site, and I will help you get your refund for free, to the best of my ability. Send me your draft and I will read it, help you describe the defect and the remedy you want, point you at the right template and work out which seller and which route fits your order. Bring the order details you are comfortable sharing, redact anything personal, and ask in the server.
+    note: I am another consumer helping out, not a lawyer. This is not legal advice or legal representation, I cannot promise a response time or an outcome, and you send your own messages and decide what to accept.
+    links:
+      - label: Join the Nozzlegate Discord
+        href: https://discord.gg/7Aqk5x8kFc
   escalationTitle: If the seller refuses or the return plan stalls
   escalationIntro: Use the route that matches your residence, invoice seller and payment method. A report to an authority and an individual refund claim are different processes.
   escalation:

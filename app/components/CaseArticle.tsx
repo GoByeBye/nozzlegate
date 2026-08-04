@@ -428,6 +428,25 @@ export function CaseArticle({ caseFile }: CaseArticleProps) {
                     ))}
                   </ol>
 
+                  {caseFile.remedy.assist ? (
+                    <section
+                      className="case-remedy__assist"
+                      aria-labelledby="refund-help-title"
+                    >
+                      <p className="eyebrow">
+                        {caseFile.remedy.assist.eyebrow}
+                      </p>
+                      <h3 id="refund-help-title">
+                        {caseFile.remedy.assist.title}
+                      </h3>
+                      <p>{caseFile.remedy.assist.text}</p>
+                      <p className="case-remedy__assist-note">
+                        {caseFile.remedy.assist.note}
+                      </p>
+                      <RemedyLinks links={caseFile.remedy.assist.links} />
+                    </section>
+                  ) : null}
+
                   <section className="case-remedy__escalation">
                     <div className="case-remedy__escalation-heading">
                       <p className="eyebrow">Still unresolved?</p>

@@ -45,6 +45,14 @@ export type CaseRemedyItem = CitedText & {
   links?: CaseActionLink[];
 };
 
+export type CaseRemedyAssist = {
+  eyebrow: string;
+  title: string;
+  text: string;
+  note: string;
+  links: CaseActionLink[];
+};
+
 export type CaseRemedyTemplate = {
   title: string;
   note: string;
@@ -59,6 +67,7 @@ export type CaseRemedy = {
   pathsIntro?: string;
   paths?: CaseRemedyItem[];
   steps: CaseRemedyItem[];
+  assist?: CaseRemedyAssist;
   escalationTitle: string;
   escalationIntro: string;
   escalation: CaseRemedyItem[];
@@ -359,6 +368,21 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
     parsed.remedy.steps.forEach((item, index) =>
       assertRemedyItem(item, `${slug}.remedy.steps[${index}]`),
     );
+    if (parsed.remedy.assist !== undefined) {
+      const location = `${slug}.remedy.assist`;
+      invariant(isRecord(parsed.remedy.assist), `${location} must be an object`);
+      for (const key of ["eyebrow", "title", "text", "note"]) {
+        hasString(parsed.remedy.assist, key, location);
+      }
+      invariant(
+        Array.isArray(parsed.remedy.assist.links) &&
+          parsed.remedy.assist.links.length > 0,
+        `${location}.links must be a non-empty array`,
+      );
+      parsed.remedy.assist.links.forEach((link, index) =>
+        assertActionLink(link, `${location}.links[${index}]`),
+      );
+    }
     invariant(
       Array.isArray(parsed.remedy.escalation) &&
         parsed.remedy.escalation.length > 0,

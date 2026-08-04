@@ -2140,6 +2140,37 @@ code {
   color: var(--gold);
 }
 
+.case-remedy__assist {
+  max-width: 780px;
+  padding: 24px 26px;
+  border: 1px solid var(--gold);
+  border-radius: var(--panel-radius);
+  background: rgb(167 159 255 / 0.06);
+}
+
+.case-remedy__assist .eyebrow {
+  margin-bottom: 10px;
+}
+
+.case-remedy__assist h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.case-remedy__assist p {
+  margin: 12px 0 0;
+  color: var(--foreground-soft);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.case-remedy__assist .case-remedy__assist-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
 .case-remedy__escalation {
   padding: 26px;
   border: 1px solid var(--purple);
@@ -2495,7 +2526,8 @@ code {
     gap: 12px;
   }
 
-  .case-remedy__escalation {
+  .case-remedy__escalation,
+  .case-remedy__assist {
     padding: 18px;
   }
 

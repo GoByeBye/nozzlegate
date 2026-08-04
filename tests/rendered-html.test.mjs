@@ -212,6 +212,18 @@ test("server-renders a cited case file", async () => {
     html,
     /Swedish damages rules can cover actual expenses, income loss and other loss caused by the defect/i,
   );
+  assert.match(html, /class="case-remedy__assist"/i);
+  assert.match(html, /Stuck on the wording\? Ask me in the Discord\./i);
+  assert.match(
+    html,
+    /I run this site, and I will help you get your refund for free, to the best of my ability/i,
+  );
+  assert.match(
+    html,
+    /I am another consumer helping out, not a lawyer. This is not legal advice or legal representation/i,
+  );
+  assert.match(html, /href="https:\/\/discord\.gg\/7Aqk5x8kFc"/i);
+  assert.match(html, /Join the Nozzlegate Discord/i);
   assert.match(html, /Option 1: Boxed return/i);
   assert.match(html, /Option 2: Installed return/i);
   assert.match(html, /Option 3: Replacement or price reduction/i);
@@ -509,6 +521,8 @@ test("keeps editorial case records in Markdown", async () => {
       } else {
         assert.doesNotMatch(remedyBlock, /\u2014/);
         assert.match(remedyBlock, /\n  paths:\r?\n/);
+        assert.match(remedyBlock, /\n  assist:\r?\n/);
+        assert.match(remedyBlock, /https:\/\/discord\.gg\/7Aqk5x8kFc/);
         assert.match(remedyBlock, /\n  templates:\r?\n/);
         assert.equal(
           (remedyBlock.match(/\n      emailTemplate: \|-/g) ?? []).length,
@@ -570,6 +584,7 @@ test("server-renders the submitted Sweden payment-fee comparison", async () => {
 
   assert.match(html, /Buyers privately confirmed/i);
   assert.doesNotMatch(html, /case-remedy__routes--two-column/i);
+  assert.doesNotMatch(html, /class="case-remedy__assist"/i);
   assert.doesNotMatch(html, /class="article-hero"/i);
   assert.doesNotMatch(html, /aria-label="Case snapshot"/i);
   assert.match(html, /Sweden selected/i);
