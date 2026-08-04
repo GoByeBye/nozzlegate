@@ -2643,6 +2643,21 @@ code {
   background: var(--surface);
 }
 
+/* Three or more records no longer fit beside the intro, so the intro becomes
+   a full-width header row and the records share the row below it. */
+.case-record-strip--stacked {
+  grid-template-columns: repeat(var(--record-columns, 3), minmax(0, 1fr));
+}
+
+.case-record-strip--stacked .case-record-strip__intro {
+  grid-column: 1 / -1;
+  border-bottom: 1px solid var(--line);
+}
+
+.case-record-strip--stacked > a:first-of-type {
+  border-left: 0;
+}
+
 .case-record-strip__intro,
 .case-record-strip > a {
   min-width: 0;
@@ -2706,6 +2721,10 @@ code {
 @media (max-width: 720px) {
   .case-record-strip {
     grid-template-columns: 1fr;
+  }
+
+  .case-record-strip--stacked .case-record-strip__intro {
+    border-bottom: 0;
   }
 
   .case-record-strip > a {
@@ -3037,6 +3056,51 @@ code {
   border-radius: 50%;
   background: var(--red);
   box-shadow: 0 0 0 4px rgb(247 44 37 / 0.12);
+}
+
+/* Redacted mail envelope shown above an email thread, in the reading order a
+   mail client uses. */
+.transcript-envelope {
+  margin: 0;
+  padding: 4px 22px 16px;
+  border-bottom: 1px solid var(--purple);
+  background: var(--surface-strong);
+}
+
+.transcript-envelope > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.transcript-envelope > div:last-child {
+  border-bottom: 0;
+}
+
+.transcript-envelope dt {
+  color: var(--muted);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  line-height: 1.9;
+}
+
+.transcript-envelope dd {
+  margin: 0;
+  color: var(--foreground-soft);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 680px) {
+  .transcript-envelope > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
 
 .transcript-section + .transcript-section {

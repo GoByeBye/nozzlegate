@@ -80,6 +80,10 @@ function ContextBlock({ block }: { block: TranscriptContextBlock }) {
 }
 
 function roleLabel(message: TranscriptMessage) {
+  if (message.roleNote) {
+    return message.roleNote;
+  }
+
   if (message.role === "company") {
     return "Attributed company response";
   }
@@ -91,8 +95,28 @@ function roleLabel(message: TranscriptMessage) {
   return null;
 }
 
+const recordKindCopy = {
+  discord: {
+    breadcrumb: "Discord record",
+    channelLabel: "Channel",
+    railTitle: "Read the verified record.",
+    railNote:
+      "This page renders the public, privacy-redacted Markdown record. It is not a native Discord export.",
+    unit: "recorded messages",
+  },
+  email: {
+    breadcrumb: "Email record",
+    channelLabel: "Helpdesk thread",
+    railTitle: "Read the verified thread.",
+    railNote:
+      "This page renders the public, privacy-redacted Markdown transcription of the sender’s own mail files. It is not a downloadable mail file, and no routing headers are published.",
+    unit: "messages in the thread",
+  },
+} as const;
+
 export function TranscriptViewer({ record }: TranscriptViewerProps) {
   const isVerified = record.recordType === "Maintainer-verified transcript";
+  const copy = recordKindCopy[record.kind];
 
   return (
     <main id="main-content" className="transcript-page">
@@ -103,7 +127,7 @@ export function TranscriptViewer({ record }: TranscriptViewerProps) {
             <span aria-hidden="true">/</span>
             <Link href="/cases/nozzlegate">Nozzlegate issue</Link>
             <span aria-hidden="true">/</span>
-            <span>Discord record</span>
+            <span>{copy.breadcrumb}</span>
           </div>
 
           <div className="transcript-hero__grid">
@@ -143,7 +167,7 @@ export function TranscriptViewer({ record }: TranscriptViewerProps) {
 
       <dl className="transcript-meta" aria-label="Transcript metadata">
         <div>
-          <dt>Channel</dt>
+          <dt>{copy.channelLabel}</dt>
           <dd>{record.attributedChannel}</dd>
         </div>
         <div>
@@ -163,11 +187,8 @@ export function TranscriptViewer({ record }: TranscriptViewerProps) {
       <div className="transcript-layout">
         <aside className="transcript-rail">
           <p className="section-number">ABOUT THIS RECORD</p>
-          <h2>Read the verified record.</h2>
-          <p>
-            This page renders the public, privacy-redacted Markdown record. It
-            is not a native Discord export.
-          </p>
+          <h2>{copy.railTitle}</h2>
+          <p>{copy.railNote}</p>
 
           <dl>
             <div>
@@ -202,8 +223,19 @@ export function TranscriptViewer({ record }: TranscriptViewerProps) {
               <span className="transcript-sheet__signal" aria-hidden="true" />
               <strong>{record.attributedChannel}</strong>
             </div>
-            <span>{record.messageCount} recorded messages</span>
+            <span>{`${record.messageCount} ${copy.unit}`}</span>
           </header>
+
+          {record.envelope.length ? (
+            <dl className="transcript-envelope" aria-label="Mail envelope">
+              {record.envelope.map((row) => (
+                <div key={row.label}>
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
 
           {record.sections.map((section, sectionIndex) => (
             <section
