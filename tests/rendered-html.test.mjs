@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(path = "/") {
@@ -154,11 +154,30 @@ test("server-renders a cited case file", async () => {
     html,
     /href="\/evidence\/bondtech-discord-hardened-statement-2026-07-23"/i,
   );
-  assert.match(html, /Read rendered transcript/i);
-  assert.match(html, /aria-label="Rendered Discord transcripts"/i);
+  assert.match(
+    html,
+    /href="\/evidence\/bondtech-support-email-thread-2026-07-17"/i,
+  );
+  assert.match(html, /aria-label="Rendered evidence records"/i);
+  assert.match(html, /class="case-record-strip case-record-strip--stacked"/i);
   assert.match(html, /17 July — hardness exchange/i);
   assert.match(html, /23 July — company statement/i);
-  assert.match(html, /Open transcript/i);
+  assert.match(html, /17 July — support email thread/i);
+  assert.doesNotMatch(html, />Record 0[1-9]</i);
+  assert.doesNotMatch(html, /rendered transcript|rendered record/i);
+  // Two strip cards plus two evidence-row links for the Discord records; one
+  // strip card plus two evidence-row links for the email thread.
+  assert.equal((html.match(/>Discord transcript</gi) ?? []).length, 4);
+  assert.equal((html.match(/>Email thread</gi) ?? []).length, 3);
+  assert.match(
+    html,
+    /The same explanation was given privately, twelve days before the public update/i,
+  );
+  assert.match(
+    html,
+    /A buyer asked Bondtech to tell its customers and records no reply/i,
+  );
+  assert.match(html, /We cannot verify a negative/i);
   assert.match(
     html,
     /A community member says criticism was followed by a Discord ban/i,
@@ -407,6 +426,108 @@ test("renders Discord Markdown as readable evidence records", async () => {
   assert.match(statement, /submitted by a trusted contributor/i);
   assert.match(statement, /2(?:<!-- -->)? recorded messages/i);
   assert.match(statement, /Follow-up included in the submitted transcript/i);
+});
+
+test("renders the support email thread as a redacted mail record", async () => {
+  const html = await htmlFor(
+    "/evidence/bondtech-support-email-thread-2026-07-17",
+  );
+
+  assert.match(html, /17 July support email record \| Nozzlegate/i);
+  assert.match(html, /The support ticket behind the screenshot/i);
+  assert.match(html, /Maintainer-verified transcript/i);
+  assert.match(html, /Email record/i);
+  assert.doesNotMatch(html, /not a native Discord export/i);
+  assert.match(html, /It is not a downloadable mail file/i);
+  assert.match(html, /<dt>Helpdesk thread<\/dt>/i);
+  assert.match(html, /7(?:<!-- -->)? messages in the thread/i);
+
+  assert.match(html, /aria-label="Mail envelope"/i);
+  assert.match(html, /<dt>Subject<\/dt>/i);
+  assert.match(html, /<dt>Buyer address<\/dt>/i);
+  assert.match(html, /Name and email address redacted/i);
+  assert.match(html, /Zendesk helpdesk ticket, number redacted/i);
+
+  assert.match(html, /Hi \[redacted\],/i);
+  assert.match(html, /Ticket opener, redacted at their request/i);
+  assert.match(html, /Signed “Founder, Bondtech AB”/i);
+  assert.doesNotMatch(html, /Unattributed record note/i);
+
+  assert.match(html, /fully hardened\s*\(~60 HRC\) steel version/i);
+  assert.match(
+    html,
+    /removed the &quot;hardened&quot; wording from the product page/i,
+  );
+  assert.match(html, /The reply that the sender records as unanswered/i);
+  assert.match(html, /Please communicate this with your customers/i);
+  assert.match(
+    html,
+    /href="\/evidence\/bondtech-support-email-thread-2026-07-17\.md"/i,
+  );
+});
+
+test("keeps the support email record free of sender identifiers", async () => {
+  const record = await readFile(
+    new URL(
+      "../content/transcripts/bondtech-support-email-thread-2026-07-17.md",
+      import.meta.url,
+    ),
+    "utf8",
+  );
+
+  // Assert on shape, never on the redacted values: this test file is public.
+  const addresses = new Set(
+    [
+      ...record.matchAll(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi),
+    ].map((match) => match[0].toLowerCase()),
+  );
+  assert.deepEqual(
+    [...addresses],
+    ["support@bondtech.se"],
+    "only the published company support address may appear",
+  );
+
+  // Helpdesk ticket numbers and encoded ticket codes are support tokens. The
+  // helpdesk writes them as "Your request (NNNNN)" in the body and as a
+  // bracketed code in the footer, so assert on those shapes rather than on
+  // digits, which a product URL or a price would trip for the wrong reason.
+  assert.doesNotMatch(record, /request\s*\(\s*\d+\s*\)/i);
+  assert.doesNotMatch(record, /ticket\s*#?\s*\d{4,}/i);
+  assert.doesNotMatch(record, /\[[A-Z0-9]{4,}-[A-Z0-9]{4,}\]/);
+
+  // A pasted MIME part would arrive as a long base64 run.
+  assert.doesNotMatch(record, /[A-Za-z0-9+/]{60,}={0,2}/);
+
+  // Safe Links wrappers embed mailbox and tenant identifiers.
+  assert.doesNotMatch(record, /safelinks\.protection\.outlook\.com/i);
+
+  assert.equal((record.match(/Hi \[redacted\],/g) ?? []).length, 2);
+
+  for (const directory of ["app", "content", "evidence", "public"]) {
+    const entries = await readdir(new URL(`../${directory}`, import.meta.url), {
+      recursive: true,
+    });
+    assert.ok(
+      !entries.some((entry) => entry.toLowerCase().endsWith(".eml")),
+      `${directory} must not contain a raw mail file`,
+    );
+  }
+});
+
+test("keeps the raw support email Markdown URL available", async () => {
+  const response = await render(
+    "/evidence/bondtech-support-email-thread-2026-07-17.md",
+  );
+
+  assert.equal(response.status, 200);
+  assert.match(
+    response.headers.get("content-type") ?? "",
+    /^text\/markdown\b/i,
+  );
+  const markdown = await response.text();
+  assert.match(markdown, /^---\r?\ntitle: Bondtech support email thread/);
+  assert.match(markdown, /recordKind: email/);
+  assert.match(markdown, /redacted at the sender’s request/i);
 });
 
 test("keeps raw Markdown transcript URLs available", async () => {

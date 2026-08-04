@@ -1,18 +1,23 @@
 import { parse } from "yaml";
 import hardenedStatementDocument from "./transcripts/bondtech-discord-hardened-statement-2026-07-23.md?raw";
 import hardnessExchangeDocument from "./transcripts/bondtech-discord-hardness-exchange-2026-07-17.md?raw";
+import supportEmailThreadDocument from "./transcripts/bondtech-support-email-thread-2026-07-17.md?raw";
 
 export const transcriptSlugs = [
   "bondtech-discord-hardness-exchange-2026-07-17",
   "bondtech-discord-hardened-statement-2026-07-23",
+  "bondtech-support-email-thread-2026-07-17",
 ] as const;
 
 export type TranscriptSlug = (typeof transcriptSlugs)[number];
+
+export type TranscriptKind = "discord" | "email";
 
 export type TranscriptMessage = {
   speaker: string;
   timestamp?: string;
   role: "company" | "community" | "unattributed";
+  roleNote?: string;
   paragraphs: string[];
 };
 
@@ -26,8 +31,14 @@ export type TranscriptContextBlock =
   | { type: "paragraph"; text: string }
   | { type: "notice"; paragraphs: string[] };
 
+export type TranscriptEnvelopeRow = {
+  label: string;
+  value: string;
+};
+
 export type TranscriptRecord = {
   slug: TranscriptSlug;
+  kind: TranscriptKind;
   title: string;
   displayTitle: string;
   deck: string;
@@ -40,6 +51,7 @@ export type TranscriptRecord = {
   submitted: string;
   verification: string;
   privacy?: string;
+  envelope: TranscriptEnvelopeRow[];
   rawHref: string;
   rawMarkdown: string;
   context: TranscriptContextBlock[];
@@ -61,7 +73,22 @@ const transcriptDocuments: Record<
     rawHref:
       "/evidence/bondtech-discord-hardened-statement-2026-07-23.md",
   },
+  "bondtech-support-email-thread-2026-07-17": {
+    markdown: supportEmailThreadDocument,
+    rawHref: "/evidence/bondtech-support-email-thread-2026-07-17.md",
+  },
 };
+
+// An email record shows the mail envelope in the reading order a mail client
+// uses. Keys not listed here are ignored so a record cannot smuggle in an
+// unreviewed header row.
+const envelopeRowLabels: Array<[string, string]> = [
+  ["subject", "Subject"],
+  ["company", "Company address"],
+  ["buyer", "Buyer address"],
+  ["thread", "Thread"],
+  ["outcome", "Outcome"],
+];
 
 function invariant(
   condition: unknown,
@@ -171,14 +198,33 @@ function parseContext(lines: string[]) {
   return blocks;
 }
 
+type TranscriptParticipant = {
+  role: TranscriptMessage["role"];
+  note?: string;
+};
+
 function parseSpeaker(
   header: string,
   companyRespondent: string,
-): Pick<TranscriptMessage, "speaker" | "timestamp" | "role"> {
+  participants: Map<string, TranscriptParticipant>,
+): Pick<
+  TranscriptMessage,
+  "speaker" | "timestamp" | "role" | "roleNote"
+> {
   const divider = header.indexOf(" — ");
   const speaker = divider >= 0 ? header.slice(0, divider).trim() : header;
   const timestamp =
     divider >= 0 ? header.slice(divider + 3).trim() : undefined;
+
+  const declared = participants.get(speaker);
+  if (declared) {
+    return {
+      speaker,
+      timestamp,
+      role: declared.role,
+      roleNote: declared.note,
+    };
+  }
 
   if (speaker === companyRespondent) {
     return { speaker, timestamp, role: "company" };
@@ -191,9 +237,55 @@ function parseSpeaker(
   return { speaker, timestamp, role: "unattributed" };
 }
 
+function parseParticipants(value: unknown, slug: TranscriptSlug) {
+  const participants = new Map<string, TranscriptParticipant>();
+
+  if (value === undefined) {
+    return participants;
+  }
+
+  invariant(Array.isArray(value), `${slug}.participants must be an array`);
+
+  for (const entry of value) {
+    invariant(isRecord(entry), `${slug}.participants entries must be objects`);
+    const label = requireString(entry, "label", slug);
+    const role = entry.role;
+    invariant(
+      role === "company" || role === "community" || role === "unattributed",
+      `${slug}.participants["${label}"].role is not supported`,
+    );
+    invariant(
+      !participants.has(label),
+      `${slug}.participants has a duplicate label "${label}"`,
+    );
+    participants.set(label, {
+      role,
+      note: typeof entry.note === "string" ? entry.note : undefined,
+    });
+  }
+
+  return participants;
+}
+
+function parseEnvelope(value: unknown, slug: TranscriptSlug) {
+  if (value === undefined) {
+    return [];
+  }
+
+  invariant(isRecord(value), `${slug}.envelope must be an object`);
+
+  return envelopeRowLabels
+    .filter(([key]) => value[key] !== undefined)
+    .map(([key, label]) => ({
+      label,
+      value: requireString(value, key, slug),
+    }));
+}
+
 function parseTranscriptSections(
   lines: string[],
   companyRespondent: string,
+  participants: Map<string, TranscriptParticipant>,
 ) {
   const sections: TranscriptSection[] = [];
   let section: TranscriptSection | undefined;
@@ -208,7 +300,7 @@ function parseTranscriptSections(
     const paragraphs = quoteParagraphs(quoted);
     invariant(paragraphs.length > 0, `"${header}" has no quoted message`);
     section.messages.push({
-      ...parseSpeaker(header, companyRespondent),
+      ...parseSpeaker(header, companyRespondent, participants),
       paragraphs,
     });
     header = undefined;
@@ -261,11 +353,18 @@ function parseTranscriptRecord(slug: TranscriptSlug): TranscriptRecord {
   const transcriptIndex = body.search(/^## Transcript\s*$/m);
   invariant(transcriptIndex >= 0, `${slug} must include ## Transcript`);
 
+  const kind = frontMatter.recordKind ?? "discord";
+  invariant(
+    kind === "discord" || kind === "email",
+    `${slug}.recordKind is not supported`,
+  );
+
   const contextLines = body.slice(0, transcriptIndex).split(/\r?\n/);
   const transcriptLines = body.slice(transcriptIndex).split(/\r?\n/);
   const sections = parseTranscriptSections(
     transcriptLines,
     companyRespondent,
+    parseParticipants(frontMatter.participants, slug),
   );
   const attributedTime =
     frontMatter.attributedTimeRange ??
@@ -277,6 +376,7 @@ function parseTranscriptRecord(slug: TranscriptSlug): TranscriptRecord {
 
   return {
     slug,
+    kind,
     title: requireString(frontMatter, "title", slug),
     displayTitle: requireString(frontMatter, "displayTitle", slug),
     deck: requireString(frontMatter, "deck", slug),
@@ -296,6 +396,7 @@ function parseTranscriptRecord(slug: TranscriptSlug): TranscriptRecord {
       typeof frontMatter.privacy === "string"
         ? frontMatter.privacy
         : undefined,
+    envelope: parseEnvelope(frontMatter.envelope, slug),
     rawHref: source.rawHref,
     rawMarkdown: source.markdown,
     context: parseContext(contextLines),

@@ -40,6 +40,10 @@ summary:
     sourceIds:
       - ng-discord-transcript
       - ng-company-update
+  - text: A support email thread from the same 17 July, supplied by the buyer who opened the ticket and verified against the original mail files, records a Bondtech reply signed by the founder. It says a fully hardened steel version at roughly 60 HRC was evaluated and dropped because the material could not be machined reliably, and that the “hardened” wording was removed from the product page deliberately to avoid creating incorrect expectations. The buyer’s closing request that Bondtech tell its customers is recorded by the sender as never answered.
+    sourceIds:
+      - ng-support-email-july17
+      - ng-company-update
 evidence:
   - label: The sales claim
     title: “Hardened steel” and “zero fear of wear”
@@ -64,6 +68,17 @@ evidence:
     sourceIds:
       - ng-discord-transcript
       - ng-company-update
+  - label: 17 July support thread
+    title: The same explanation was given privately, twelve days before the public update
+    text: "A buyer who could not find the word “hardened” on the product page opened a support ticket to buy more nozzles. The verified thread records the founder’s answer: a roughly 60 HRC steel version was evaluated, dropped because the cutting tools could not machine it reliably, and replaced with the nitrocarburised version “for the time being”; the shipped nozzles are “not intended for prolonged use with highly abrasive filaments”; the product page wording was changed deliberately; and no timeframe for a fully hardened nozzle could be given. The original mail files were supplied by the sender and verified by the site operator, who redacted the sender’s identity at their request."
+    sourceIds:
+      - ng-support-email-july17
+      - ng-company-update
+  - label: The unanswered request
+    title: A buyer asked Bondtech to tell its customers and records no reply
+    text: The buyer’s closing message the same afternoon asked Bondtech to communicate the change to its customers, said that two answers had still not made clear which filaments were safe to run, and described the choice between continuing with the INDX or reverting the printer. The sender states that it was never answered. We cannot verify a negative and record only that the supplied mail files contain no reply to it.
+    sourceIds:
+      - ng-support-email-july17
   - label: The changed record
     title: Product language was revised after discovery
     text: The current tool listing uses “Steel CHT” language. Contemporary reporting collected archived sales pages, buyer invoices, packing slips and boxes showing the earlier hardened description.
@@ -102,6 +117,11 @@ timeline:
     sourceIds:
       - ng-discord-july17
       - ng-investigation
+  - date: 17 Jul 2026
+    title: The same explanation is given privately by email
+    text: A support ticket opened that morning to buy replacement nozzles produces two Bondtech answers and, at 16:41, a founder-signed explanation of the dropped 60 HRC version and the deliberate removal of the “hardened” wording. The buyer’s 16:56 request that Bondtech tell its customers is recorded by the sender as unanswered.
+    sourceIds:
+      - ng-support-email-july17
   - date: 18 Jul 2026
     title: The mismatch spreads beyond Discord
     text: Discord screenshots, delivery photos, invoices and archived sales language are collected by owners and independent reporting.
@@ -379,6 +399,7 @@ sources:
   - id: ng-discord-july17
     title: Bondtech Discord hardness exchange — verified transcript
     displayTitle: 17 July — hardness exchange
+    recordLabel: Discord transcript
     publisher: Trusted contributor / verified by site operator
     href: /evidence/bondtech-discord-hardness-exchange-2026-07-17
     kind: Evidence
@@ -386,10 +407,19 @@ sources:
   - id: ng-discord-transcript
     title: Bondtech Discord nozzle statement — verified transcript
     displayTitle: 23 July — company statement
+    recordLabel: Discord transcript
     publisher: Trusted contributor / verified by site operator
     href: /evidence/bondtech-discord-hardened-statement-2026-07-23
     kind: Evidence
     checked: 29 Jul 2026
+  - id: ng-support-email-july17
+    title: Bondtech support email thread — verified transcription
+    displayTitle: 17 July — support email thread
+    recordLabel: Email thread
+    publisher: Sender of the thread / verified by site operator
+    href: /evidence/bondtech-support-email-thread-2026-07-17
+    kind: Evidence
+    checked: 4 Aug 2026
   - id: ng-archived-product
     title: INDX Development Kit product page, archived 16 July 2026
     publisher: Internet Archive / Bondtech

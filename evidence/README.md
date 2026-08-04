@@ -22,6 +22,12 @@ conversation remains understandable without publishing participant handles.
 Retain a name only when it is materially necessary to attribute an official
 company statement, and document why.
 
+Never commit a raw mail file. Personal data in an `.eml` is base64 and
+quoted-printable encoded in places, so a search for a name or address can come
+back clean while the file still contains both. Transcribe the message bodies
+into a Markdown record instead, keep the original outside the repository, and
+record its SHA-256 here so a private copy can still be matched.
+
 ## Current preserved records
 
 - [Bondtech Sweden payment-fee checkout captures](bondtech-sweden-payment-fee-checkout.md)
@@ -29,3 +35,4 @@ company statement, and document why.
 - [Bondtech USD card-fee order and private confirmation](bondtech-usd-card-fee-order-summary.md)
 - [Bondtech Discord hardness exchange, 17 July 2026](bondtech-discord-hardness-exchange-2026-07-17.md)
 - [Bondtech Discord hardened-nozzle statement](bondtech-discord-hardened-statement-2026-07-23.md)
+- [Bondtech support email thread, 17 July 2026](bondtech-support-email-thread-2026-07-17.md)

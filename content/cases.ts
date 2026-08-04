@@ -23,6 +23,9 @@ export type CaseSource = {
   id: string;
   title: string;
   displayTitle?: string;
+  // Names what the record actually is, such as "Discord transcript" or
+  // "Email thread", wherever the case links to a rendered evidence record.
+  recordLabel?: string;
   publisher: string;
   href: string;
   kind: SourceKind;
@@ -405,6 +408,9 @@ function parseCaseFile(slug: CaseSlug): CaseFile {
     }
     if (source.displayTitle !== undefined) {
       hasString(source, "displayTitle", location);
+    }
+    if (source.recordLabel !== undefined) {
+      hasString(source, "recordLabel", location);
     }
     invariant(
       typeof source.kind === "string" &&

@@ -105,7 +105,8 @@ function RenderedEvidenceLinks({
     <div className="evidence-record-links" aria-label="Rendered evidence">
       {records.map((record) => (
         <Link href={record.href} key={record.id}>
-          Read rendered transcript <span aria-hidden="true">↗</span>
+          {record.recordLabel ?? "Rendered record"}{" "}
+          <span aria-hidden="true">↗</span>
           <span className="sr-only">: {record.title}</span>
         </Link>
       ))}
@@ -125,20 +126,32 @@ function RenderedRecordStrip({ sources }: { sources: CaseSource[] }) {
     return null;
   }
 
+  const stacked = records.length > 2;
+
   return (
     <nav
-      className="case-record-strip"
-      aria-label="Rendered Discord transcripts"
+      className={`case-record-strip${
+        stacked ? " case-record-strip--stacked" : ""
+      }`}
+      style={
+        stacked
+          ? ({ "--record-columns": records.length } as React.CSSProperties)
+          : undefined
+      }
+      aria-label="Rendered evidence records"
     >
       <div className="case-record-strip__intro">
-        <span>Discord transcripts</span>
+        <span>Evidence records</span>
         <p>Readable records with verification and privacy notes attached.</p>
       </div>
       {records.map((record, index) => (
         <Link href={record.href} key={record.id}>
-          <span>Record {String(index + 1).padStart(2, "0")}</span>
+          <span>
+            {record.recordLabel ??
+              `Record ${String(index + 1).padStart(2, "0")}`}
+          </span>
           <strong>{record.displayTitle ?? record.title}</strong>
-          <small>Open transcript ↗</small>
+          <small>Open ↗</small>
         </Link>
       ))}
     </nav>
