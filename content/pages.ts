@@ -27,6 +27,15 @@ export type HomeContent = {
     title: string;
     intro: string;
   };
+  community: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    note: string;
+    label: string;
+    href: string;
+    iconAlt: string;
+  };
   actions: Array<{
     label: string;
     text: string;
