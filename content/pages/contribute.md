@@ -67,7 +67,7 @@ contact:
       value: Join the Nozzlegate Discord
       text: Join the project community to share a lead or ask how to contribute.
       action: Join the server
-      href: https://discord.gg/7Aqk5x8kFc
+      href: https://discord.gg/d4QBX7z4zp
       external: true
     - label: Email
       value: contact.nozzlegate@f22.no

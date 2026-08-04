@@ -222,7 +222,7 @@ test("server-renders a cited case file", async () => {
     html,
     /I am another consumer helping out, not a lawyer. This is not legal advice or legal representation/i,
   );
-  assert.match(html, /href="https:\/\/discord\.gg\/7Aqk5x8kFc"/i);
+  assert.match(html, /href="https:\/\/discord\.gg\/d4QBX7z4zp"/i);
   assert.match(html, /Join the Nozzlegate Discord/i);
   assert.match(html, /Option 1: Boxed return/i);
   assert.match(html, /Option 2: Installed return/i);
@@ -434,7 +434,7 @@ test("links contributors to the GitHub project", async () => {
     /href="https:\/\/github\.com\/GoByeBye\/nozzlegate"/i,
   );
   assert.match(html, /Join the Nozzlegate Discord/i);
-  assert.match(html, /https:\/\/discord\.gg\/7Aqk5x8kFc/i);
+  assert.match(html, /https:\/\/discord\.gg\/d4QBX7z4zp/i);
   assert.doesNotMatch(html, /discord(?:app)?\.com\/users\//i);
   assert.match(html, /mailto:contact\.nozzlegate@f22\.no/i);
   assert.match(html, /website itself does not submit or store messages/i);
@@ -522,7 +522,7 @@ test("keeps editorial case records in Markdown", async () => {
         assert.doesNotMatch(remedyBlock, /\u2014/);
         assert.match(remedyBlock, /\n  paths:\r?\n/);
         assert.match(remedyBlock, /\n  assist:\r?\n/);
-        assert.match(remedyBlock, /https:\/\/discord\.gg\/7Aqk5x8kFc/);
+        assert.match(remedyBlock, /https:\/\/discord\.gg\/d4QBX7z4zp/);
         assert.match(remedyBlock, /\n  templates:\r?\n/);
         assert.equal(
           (remedyBlock.match(/\n      emailTemplate: \|-/g) ?? []).length,

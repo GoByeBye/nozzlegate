@@ -235,7 +235,7 @@ remedy:
     note: I am another consumer helping out, not a lawyer. This is not legal advice or legal representation, I cannot promise a response time or an outcome, and you send your own messages and decide what to accept.
     links:
       - label: Join the Nozzlegate Discord
-        href: https://discord.gg/7Aqk5x8kFc
+        href: https://discord.gg/d4QBX7z4zp
   escalationTitle: If the seller refuses or the return plan stalls
   escalationIntro: Use the route that matches your residence, invoice seller and payment method. A report to an authority and an individual refund claim are different processes.
   escalation:
