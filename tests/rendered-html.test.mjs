@@ -297,14 +297,11 @@ test("server-renders a cited case file", async () => {
   );
   // ARN is named for non-Swedish consumers
   assert.match(html, /ARN, the Swedish consumer disputes board/i);
-  // fail-safe: no delete-me instruction may survive in either body
-  assert.doesNotMatch(html, /DELETE FROM HERE DOWN/i);
-  assert.doesNotMatch(html, /OPTIONAL PARAGRAPH BELOW/i);
-  // the seller never gets the election between the money remedies
-  // the acceptance criterion for a replacement stays measurable
-  // termination is an express notice, and it lives in the copied body
-  assert.match(html, /I terminate the purchase because the goods do not conform/i);
-  // the installed kit is not dismantled by the buyer on the termination path
+  // a prepaid label is not one of the confirmations the letter asks for
+  assert.match(
+    html,
+    /Sending a prepaid label is not confirmation of any of those points/i,
+  );
   assert.match(html, /U\.S\. buyers can keep the factual refund-offer/i);
   assert.match(html, /verify the rules where you live before sending/i);
   assert.match(

@@ -372,7 +372,7 @@ remedy:
         2. that the return is at your cost under Chapter 8, Section 2, by collection or a prepaid tracked label; and
         3. that none of this is conditional on signing a release, keeping it confidential, withdrawing a payment dispute or removing anything I have published.
 
-        A label alone is not one of them. Once point 1 is confirmed I will send the goods tracked, with the tracking number as evidence of dispatch. Payment falls due on that evidence, not on booking-in. If not confirmed I will not dispatch; the goods stay at your disposal and any delay is yours. I return the INDX kit and those items only.
+        Sending a prepaid label is not confirmation of any of those points. Once point 1 is confirmed I will send the goods tracked, with the tracking number as evidence of dispatch. Payment falls due on that evidence, not on booking-in. If not confirmed I will not dispatch; the goods stay at your disposal and any delay is yours. I return the INDX kit and those items only.
 
         I reserve all rights to damages. If this is unresolved after that date, I will file a complaint with ARN, the Swedish consumer disputes board, which takes complaints from private consumers against Swedish companies whatever their country of residence, and open a dispute with my payment provider. Please confirm receipt.
 
