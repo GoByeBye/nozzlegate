@@ -311,74 +311,70 @@ remedy:
         - ng-mastercard-chargeback
         - ng-report-authority
   templates:
-    - title: "Option 1: Boxed return"
-      note: Use this when the seller has offered a full refund and the product is still unassembled or uninstalled. This requests suitable terms without accepting a return arrangement yet. Replace the bracketed text and verify the law that applies where you live.
+    - title: Start here if you want hardened replacements or a price reduction
+      note: Send this first, through Bondtech’s support form, not an inbox. Fill every capitalised field and change nothing else, listing every order number you have. Two dates do the work, and they differ. A short reply window, because your dispute routes carry their own time limits. And a long delivery date you propose, generous because hardened nozzles are far from existing. It is also the reasonable time you are held to, so being generous makes ending the purchase harder. Ask them to agree a price reduction falling due if that date passes. Price it from Bondtech’s checkout today for your quantity and screenshot it, because a sourced number gets negotiated. Say which remedy you want in the preference line, then let Bondtech pick between the two. That concession is not the law, and it makes saying yes cheap. To end the purchase and send everything back, use the second draft.
       emailTemplate: |-
-        Subject: Request for full-refund return terms, order [ORDER NUMBER]
+        Subject: Formal reklamation, INDX nozzle tools, order [ORDER NUMBER]
 
-        Hi [NAME],
+        Hello,
 
-        Thank you. The INDX has not been assembled or installed. It remains in [THE ORIGINAL BOX / SAFE PACKAGING] and can be made available for return after I accept suitable, complete terms in writing.
+        Order [ORDER NUMBER], delivered [DELIVERY DATE]. INDX nozzle tools, quantity [HOW MANY], each line-itemed as hardened on your invoice. Bought direct from Bondtech, private consumer in [COUNTRY].
 
-        I want to pursue the option of returning the complete INDX for a full refund. Before I confirm any arrangement or dispatch the product, please provide a suitable, complete written proposal covering all items, the full refund amount and payment date, any proposed deductions, packaging requirements and costs, and a prepaid tracked return or collection method and timetable.
+        They were sold as hardened and abrasive resistant. Your public update of 29 July 2026 says the nozzles that shipped are not truly hardened, roughly 30–32 HRC against about 55–60 HRC. That is a lack of conformity under Konsumentköplagen (2022:260) 4 kap. 2 § and article 7(1)(d) of Directive (EU) 2019/771. The goods do not match their description or your public statements about their characteristics.
 
-        For a valid EU statutory termination, Article 16(3)(a) of Directive (EU) 2019/771 says the consumer returns the goods “at the seller's expense”. For a statutory termination under Swedish law because of the seller's breach, Chapter 8, Section 2 of Konsumentköplag (2022:260) says “ska det ske på näringsidkarens bekostnad”. If this is a voluntary refund offer, please confirm that you will cover the return cost.
+        https://www.bondtech.se/2026/07/29/indx-hardened-nozzles-update/
 
-        EU law: https://eur-lex.europa.eu/eli/dir/2019/771/oj/eng
-        Swedish law: https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/konsumentkoplag-2022260_sfs-2022-260/
+        I bought them for [WHAT I PRINT, DOCUMENTED IF NEEDED].
 
-        Once you provide a suitable, complete proposal covering every point above, I will state in writing whether I accept it and, if accepted, dispatch promptly and keep proof of sending.
+        I claim, at your election:
+
+        1. Replacement of every tool listed above, hardened through, not surface treated, at no cost to me (5 kap. 4 §), delivered duty paid, customs and tax included; or
+        2. A price reduction of at least [AMOUNT AND CURRENCY], your own store’s landed price to me at checkout on [DATE OF THAT CHECKOUT], or the cost of hardened tools when it falls due, if higher. A genuinely hardened tool will not cost less, so that is a conservative floor.
+
+        I do not accept a voucher, store credit or discount on hardened tools. If you consider my order unaffected, please state the measured hardness of the tools shipped.
+
+        My preference is [WRITE REPLACEMENT, OR WRITE THE PRICE REDUCTION]. For my documented abrasive use these tools hold no residual value.
+
+        If you replace, conforming nozzles are far away, so I am not asking for them overnight. Please confirm [LONG STOP DATE I PROPOSE] as the date they arrive by, that tools worn out by reasonable use before then are replaced or refunded, and that the price reduction above falls due if that date passes.
+
+        Please answer those points in writing by [DATE, 14 DAYS FROM TODAY]. That window is mine, not set by law; my dispute routes carry their own time limits. If we have not agreed a remedy by then, I will file a complaint with ARN, the Swedish consumer disputes board, which takes complaints from private consumers against Swedish companies whatever their country of residence, and open a dispute with my payment provider, citing your update of 29 July 2026.
+
+        I reserve all rights to damages and all other statutory rights.
+
+        This is my formal reklamation under Swedish consumer law, not a warranty claim. Please confirm receipt and put any agreement in writing.
 
         Kind regards,
         [YOUR NAME]
-        Order [ORDER NUMBER]
-    - title: "Option 2: Installed return"
-      note: Use this when the seller has offered a full refund and the INDX is already assembled or installed. It requests a suitable removal and return proposal without accepting an arrangement yet. A payment for your own work is a settlement proposal, not an automatic right. Replace the brackets and verify local law.
+    - title: Ending the purchase and getting your money back
+      note: For a buyer who wants out rather than a fix. Termination needs express notice, so do not soften that sentence. Fill every capitalised field and delete nothing. Expect a first answer electing replacement under Chapter 5, Section 5 of Konsumentköplagen, which the Chapter 5, Section 8 wording is there to meet, so leave it alone. The reply date is your own commercial window, set around your payment provider’s time limits, not a statutory deadline. On a valid termination the return is at the seller’s expense under Chapter 8, Section 2, “ska det ske på näringsidkarens bekostnad”. The technician is a demand, not an automatic entitlement, and removal work is better argued as loss caused by the defect under Chapter 6, Section 1. The seller may claim an allowance for the use you have had, so do not agree one in advance. Ship tracked and keep the dispatch proof, because the refund turns on it.
       emailTemplate: |-
-        Subject: Request for installed INDX return terms, order [ORDER NUMBER]
+        Subject: Ending the purchase, refund required, order [ORDER NUMBER]
 
-        Hi [NAME],
+        Hello,
 
-        Your response appears to have overlooked the central fact: the INDX is already fully installed in my printer. It is not sitting unused in its original packaging waiting for a return label.
+        Private consumer in: [COUNTRY]
+        Condition: [SEALED, OR INSTALLED SINCE DATE]
+        Please reply by: [DATE, 14 CALENDAR DAYS FROM TODAY]
 
-        A shipping label is not a disassembly service. It covers only transport after removal and packing. Reversing the installation and restoring the printer is substantial technical work.
+        This is my formal reklamation under Swedish consumer law. I terminate the purchase because the goods do not conform, and I require a refund of [TOTAL AMOUNT AND CURRENCY], covering the INDX kit and anything I cannot reasonably keep without conforming nozzles, plus delivery, duties and taxes. That is a notice, not a proposal, and no part payment settles it.
 
-        I want to pursue the option of returning the complete INDX for a full refund, but I do not accept a return arrangement or authorize dismantling until you provide a suitable, complete written proposal. I do not want to dismantle it myself because the reversal is cumbersome and carries risk. Please confirm:
+        Your order documents list [HOW MANY] nozzle tools as hardened. Your update of 29 July 2026 says the ones that shipped are not truly hardened, roughly 30–32 HRC against about 55–60 HRC. I complain promptly on learning of this. Goods must match their description and your public statements about their characteristics, under Konsumentköplagen (2022:260) and Directive (EU) 2019/771.
 
-        1. whether you will arrange removal, or agree to a fixed [AMOUNT AND CURRENCY] for me or a technician to dismantle and pack it;
-        2. written instructions, risk allocation, suitable packaging and prepaid collection; and
-        3. the covered items, full refund amount and refund timing.
+        https://www.bondtech.se/2026/07/29/indx-hardened-nozzles-update/
 
-        The fixed amount is a settlement proposal. Please confirm whether you agree or provide a complete alternative proposal for my review. An alternative is not agreed unless I accept its full terms in writing.
+        I bought these for [FILAMENT YOU PRINT]. Conforming nozzles are far away by your own account and the defect is serious, so under Chapter 5, Section 8 termination needs no prior repair or replacement attempt.
 
-        For a valid EU statutory termination, Article 16(3)(a) of Directive (EU) 2019/771 says the consumer returns the goods “at the seller's expense”. For a statutory termination under Swedish law because of the seller's breach, Chapter 8, Section 2 of Konsumentköplag (2022:260) says “ska det ske på näringsidkarens bekostnad”. Neither provision automatically requires seller-performed removal or payment for my time. If this is a voluntary refund offer, please confirm the complete cost terms.
+        If my kit is installed, it went in as intended before I knew of this, and I will not dismantle it. In that case, please send a technician to remove the INDX and restore my printer, at your cost. If not, say so in writing and meet the documented cost of that work.
 
-        EU law: https://eur-lex.europa.eu/eli/dir/2019/771/oj/eng
-        Swedish law: https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/konsumentkoplag-2022260_sfs-2022-260/
+        Please confirm in writing by the date above:
 
-        Once you provide a suitable, complete proposal covering every point above, I will state in writing whether I accept it and, if accepted, cooperate promptly. Please reply by [DATE].
+        1. the full amount, paid to the account I paid from, with no deduction for use, restocking, handling or shipping either way, and not conditional on inspection or acceptance;
+        2. that the return is at your cost under Chapter 8, Section 2, by collection or a prepaid tracked label; and
+        3. that none of this is conditional on signing a release, keeping it confidential, withdrawing a payment dispute or removing anything I have published.
 
-        Kind regards,
-        [YOUR NAME]
-        Order [ORDER NUMBER]
-    - title: "Option 3: Replacement or price reduction"
-      note: Use this if you want to keep the INDX and request conforming replacement nozzles or a proportionate price reduction, sometimes called a partial refund. Bondtech has not announced a concrete keep-product compensation offer. Use the Swedish-law wording only if Swedish law governs the purchase. A payment provider may require a return or attempted return even for a partial dispute, and eligibility for payment-provider disputes and ARN varies.
-      emailTemplate: |-
-        Subject: Replacement or price-reduction request, order [ORDER NUMBER]
+        Sending a prepaid label is not confirmation of any of those points. Once point 1 is confirmed I will send the goods tracked, with the tracking number as evidence of dispatch. Payment falls due on that evidence, not on booking-in. If not confirmed I will not dispatch; the goods stay at your disposal and any delay is yours. I return the INDX kit and those items only.
 
-        Hi [NAME],
-
-        I would prefer to keep the INDX if we can agree a suitable remedy in writing for the non-conforming nozzle specification. I request [SELECT ONE AND DELETE THE OTHER: CONFORMING HARDENED REPLACEMENT NOZZLES AT NO COST / A PRICE REDUCTION OF AMOUNT AND CURRENCY, CALCULATED AS: BASIS]. This request does not accept a different or incomplete proposal and does not waive other rights or remedies.
-
-        If I selected a price reduction, I rely on [REPAIR OR REPLACEMENT IS UNAVAILABLE / CANNOT BE COMPLETED WITHIN A REASONABLE TIME OR WITHOUT SUBSTANTIAL INCONVENIENCE / WAS NOT CARRIED OUT AS REQUIRED / LEFT THE DEFECT UNRESOLVED / THE DEFECT IS SUFFICIENTLY SERIOUS].
-
-        Chapter 5, Section 1 of Konsumentköplag (2022:260) lists “avhjälpande, omleverans, prisavdrag eller ersättning för att avhjälpa felet eller häva köpet”. Sections 4 to 8 set the relevant conditions and sequence for replacement and price reduction. Citizenship alone does not determine whether Swedish law applies; this request relies on these provisions only if Swedish law governs the purchase.
-
-        Please state by [DATE] whether you agree to the selected remedy and provide its complete written terms. For replacement, identify the exact parts and specification, every cost, delivery method and delivery date. For a price reduction, confirm the amount, payment method and payment date. I do not accept a different or incomplete proposal unless I confirm its full terms in writing. If you reject the claim, do not answer within a reasonable time, or fail to carry out an agreed remedy, I will ask [PAYMENT PROVIDER] to open a partial dispute or chargeback for only [DISPUTED AMOUNT AND CURRENCY, CALCULATED AS THE REQUESTED PRICE REDUCTION OR DOCUMENTED REPLACEMENT COST], described accurately as defective or not as described and subject to its rules. I will not dispute the full transaction while keeping the product. I will also, if eligible, apply to ARN. ARN only handles claims subject to Swedish legislation.
-
-        Swedish law: https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/konsumentkoplag-2022260_sfs-2022-260/
-        Payment disputes: https://www.konsumentverket.se/ekonomi/kortreklamation/
-        ARN: https://www.arn.se/om-arn/Languages/english-what-is-arn/
+        I reserve all rights to damages. If this is unresolved after that date, I will file a complaint with ARN, the Swedish consumer disputes board, which takes complaints from private consumers against Swedish companies whatever their country of residence, and open a dispute with my payment provider. Please confirm receipt.
 
         Kind regards,
         [YOUR NAME]
